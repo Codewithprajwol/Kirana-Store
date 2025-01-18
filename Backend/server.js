@@ -1,7 +1,14 @@
+//?Module imports
 import express from 'express'
 
-const app = express()
+//?file imports
+import { connectDb } from './config/connectdb.config.js'
+import { ENV_VARS } from './config/env.config.js'
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000')
+const app = express()
+const PORT=ENV_VARS.PORT;
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT} `)
+    connectDb()
 })
