@@ -35,7 +35,12 @@ export const loginUser=async(req,res)=>{
         if(!user) return res.status(404).json({error:"user not found"});
         if(await user.comparePassword(password)){
             generateTokenAndSetCookie(user._id,res);
-            res.status(200).json({user:'user logged in successfully'})
+            res.status(200).json({user:{
+                _id:user._id,
+                username:user.username,
+                email:user.email,
+                role:user.role
+            },message:'user logged in successfully'})
         }else{
             res.status(401).json({error:"Invalid credentials"})
         }
