@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
       },
       email:{
         type:String,
-        require:[true,"Email is required"],
+        required:[true,"Email is required"],
         unique:true,
         trim:true,
         lowercase:true,
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
       ,
       cartItems:[{
         quantity:{
-            type:number,
+            type:Number,
             default:1,
         },
         product:{
