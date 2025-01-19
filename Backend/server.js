@@ -9,6 +9,7 @@ import userRoutes from './routes/user.routes.js'
 import productRoutes from './routes/product.routes.js'
 import cartRoutes from './routes/cart.routes.js'
 import couponRoutes from './routes/coupon.routes.js'
+import analyticRoutes from './routes/analytic.routes.js'
 
 const app = express()
 const PORT=ENV_VARS.PORT;
@@ -20,6 +21,7 @@ app.use('/api/auth',userRoutes);
 app.use('/api/products',productRoutes);
 app.use('/api/carts',cartRoutes)
 app.use('/api/coupons',couponRoutes)
+app.use('/api/analytics',analyticRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT} `)
