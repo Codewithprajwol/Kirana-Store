@@ -1,3 +1,4 @@
+import cloudinary from "../lib/cloudinary.js";
 import { redis } from "../lib/redis.js";
 import Product from "../models/product.model.js";
 
@@ -41,6 +42,12 @@ export const createProduct=async(req,res)=>{
         const{name,description,price,isFeatured,category}=req.body
         let {image}=req.body;
 
+        let cloudinaryResponse=null;
+
+        if(image){
+            await cloudinary.uploader.upload(image,{folder:'products'})
+        }
+        
          const product=await Product.create({
             name,
             description,
