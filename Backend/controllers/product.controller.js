@@ -38,7 +38,25 @@ export const getAllProducts=async(req,res)=>{
 
 export const createProduct=async(req,res)=>{
     try{
-        
+        const{name,description,price,isFeatured,category}=req.body
+        let {image}=req.body;
+
+         const product=await Product.create({
+            name,
+            description,
+            price,
+            image,
+            isFeatured,
+            category
+         })
+         res.status(201).json({success:true,messge:'product created successfully',product:{
+            name:product.name,
+            description:product.description,
+            price:product.price,
+            image:product.image,
+            isFeatured:product.isFeatured,
+            category:product.category
+         }})
     }catch(err){
         console.log('Error in createProduct',err.message);
         res.status(500).json({error:"Internal Server Error"});
