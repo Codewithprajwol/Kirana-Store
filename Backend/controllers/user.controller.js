@@ -68,3 +68,12 @@ try{
 
 }
 }
+
+export const getProfile=async(req,res)=>{
+    try{
+        res.json(req.user)
+    }catch(err){
+        console.log('Error in getProfile Controller',err.message);
+        res.status(500).json({error:"Internal Server Error"})
+    }
+}
