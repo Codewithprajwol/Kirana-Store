@@ -150,4 +150,3 @@ async function updateFeaturedProductsCache(){
         console.log('Error in updateFeaturedProductsCache',err.message);
     }
 }
-featuredProducts
