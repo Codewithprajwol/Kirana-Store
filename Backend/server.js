@@ -10,6 +10,7 @@ import productRoutes from './routes/product.routes.js'
 import cartRoutes from './routes/cart.routes.js'
 import couponRoutes from './routes/coupon.routes.js'
 import analyticRoutes from './routes/analytic.routes.js'
+import orderRoutes from './routes/payment.routes.js'
 
 const app = express()
 const PORT=ENV_VARS.PORT;
@@ -21,6 +22,7 @@ app.use('/api/auth',userRoutes);
 app.use('/api/products',productRoutes);
 app.use('/api/carts',cartRoutes)
 app.use('/api/coupons',couponRoutes)
+app.use('/api/payment',orderRoutes)
 app.use('/api/analytics',analyticRoutes)
 
 app.listen(PORT, () => {
