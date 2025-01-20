@@ -1,3 +1,4 @@
+import stripe from "../lib/stripe.js";
 import Coupon from "../models/coupon.model.js"
 
 export const getCoupon=async(req,res)=>{
@@ -28,6 +29,8 @@ export const validateCoupon=async(req,res)=>{
         code:coupon.code
        })
     }catch(err){
-
+        console.log('Error in validateCopuon Controller',err.message)
+        res.status(500).json({error:'Internal Server Error'});
     }
 }
+
