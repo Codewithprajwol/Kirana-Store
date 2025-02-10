@@ -126,4 +126,4 @@ async function createNewCoupon(userId){
     })
     await newCoupon.save();
     return newCoupon;
-}
+} 
