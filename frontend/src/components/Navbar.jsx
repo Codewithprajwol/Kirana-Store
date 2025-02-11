@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Search, ShoppingCart, Phone, LogIn} from 'lucide-react';
+import { Search, ShoppingCart, Phone, LayoutDashboard, CircleUserRound, LogOut, LogInIcon} from 'lucide-react';
 import SideBar from './SideBar';
 import Auth from './Auth';
 
 
 const Navbar = ({user}) => {
-  // const user=true;
-  const admin=false;
     const [isLoginOpen, setIsLoginOpen] = useState(false);
-
+ 
   return (
     <>
     <div className="bg-green-600 text-white py-3 px-4 sm:px-6 lg:px-8 flex items-center justify-between shadow-lg sticky top-0 z-10  gap-3">
@@ -32,7 +30,7 @@ const Navbar = ({user}) => {
       
       
 
-{user?.role==='customer' && <div className=' flex items-center justify-center gap-10 flex-shrink-0'>
+{user?.role==='customer' && <div className=' flex items-center justify-center gap-5 sm:gap-7 flex-shrink-0'>
       {/* Order Information (Hidden on Small Screens) */}
       <div className="hidden sm:flex items-center ml-4 lg:ml-6 text-sm">
         <Phone className="w-3 h-3 sm:w-4 sm:h-4 mr-1"/>
@@ -50,12 +48,16 @@ const Navbar = ({user}) => {
         </span>
       </div>
 
-      {/* Login Button */}
-      <button onClick={()=>{setIsLoginOpen(true)
-      }} className="cursor-pointer bg-transparent border border-white text-white text-sm py-1.5 px-3 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
-        Login
+      <button  className=" cursor-pointer bg-transparent border border-white flex items-center justify-center gap-1 text-white text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
+        <CircleUserRound size={20}/>
+        <span className='hidden sm:block'> Account</span>
       </button>
-        <Auth setIsLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen}/>
+
+      {/* Login Button */}
+      <button onClick={()=>setIsLoginOpen(true)} className=" cursor-pointer bg-transparent border border-white flex items-center justify-center gap-1 text-white text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
+        <LogOut size={20}/>
+       <span className='hidden sm:block'>LogOut</span>
+      </button>
     </div>}
 
 {user===null && <div className=' flex items-center justify-center gap-10 flex-shrink-0'>
@@ -77,24 +79,28 @@ const Navbar = ({user}) => {
       </div>
 
       {/* Login Button */}
-      <button onClick={()=>{setIsLoginOpen(true)
-      }} className="cursor-pointer bg-transparent border border-white text-white text-sm py-1.5 px-3 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
-        Login
+     
+
+      <button onClick={()=>setIsLoginOpen(true)} className=" cursor-pointer bg-transparent border border-white flex items-center justify-center gap-1 text-white text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
+        <LogInIcon size={20}/>
+        Log In
       </button>
+    
+      
         <Auth setIsLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen}/>
     </div>}
 
 {user?.role==='admin' && <div className='flex items-center justify-center gap-2 sm:gap-7 flex-shrink-0'>
       
       <button  className=" cursor-pointer bg-transparent border border-white flex items-center justify-center gap-1 text-white text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
-        <LogIn size={20}/>
-        Dashboard
+        <LayoutDashboard size={20}/>
+        <span className='hidden sm:block'>Dashboard</span>
       </button>
         <Auth setIsLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen}/>
       {/* Login Button */}
       <button onClick={()=>setIsLoginOpen(true)} className=" cursor-pointer bg-transparent border border-white flex items-center justify-center gap-1 text-white text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
-        <LogIn size={20}/>
-        Log In
+        <LogOut size={20}/>
+        <span className='hidden sm:block'>Log Out</span>
       </button>
     
     </div> 
@@ -109,7 +115,7 @@ const Navbar = ({user}) => {
           placeholder="Search products & categories"
           className="border-none outline-none p-1.5 text-gray-700 w-full  placeholder-gray-500 text-md"
         />
-      </div>
+    </div>
 
     </>
   );

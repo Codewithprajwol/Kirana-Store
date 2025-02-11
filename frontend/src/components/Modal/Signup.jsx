@@ -10,18 +10,17 @@ const Signup = ({setIsLoginOpen,setIsSignupOpen}) => {
     const [confirmPassword,setConfirmPassword]=useState('')
 
 
-    const signupHandler=(e)=>{
+    const signupHandler=async(e)=>{
         e.preventDefault()
-        console.log({fullName,email,password,confirmPassword})
-        signup({fullName,email,password,confirmPassword})
-        // setFullName('')
-        // setEmail('')
-        // setPassword('')
-        // setConfirmPassword('')
+        await signup({fullName,email,password,confirmPassword})
+        setFullName('')
+        setEmail('')
+        setPassword('')
+        setConfirmPassword('')
     }
     
   return (
-    <div className="flex bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-screen-md mx-auto relative mt-[2.7rem]">
+    <div className="flex bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-screen-md mx-4 relative mt-[2.7rem]">
   {/* Left Side - Illustration Area */}
   <div className="hidden sm:block sm:w-1/2  p-8">
     <img src='/test.jpg' alt="Stylish Illustration" className="w-full h-full object-cover mix-blend-multiply opacity-75" />

@@ -7,6 +7,7 @@ export const useUserStore=create((set,get)=>({
     user:null,
     loading:false,
     checkingAuth:true,
+    isModalOpen:true,
     signup:async({fullName:username,email,password,confirmPassword})=>{
         set({loading:true});
 
@@ -17,8 +18,10 @@ export const useUserStore=create((set,get)=>({
         try {
             const response=await axios.post("/auth/signup",{username,email,password})
             set({user:response.data.user,loading:false})
-            console.log(response)
+            if(response.status=200){
             toast.success('account created successfully')
+            set({isModalOpen:false})
+            }
         } catch (error) {
             console.log(error)
             set({loading:false})
@@ -32,6 +35,7 @@ export const useUserStore=create((set,get)=>({
             if(response.status=200){
                 set({user:response.data.user,loading:false})
                 toast.success(response.data.message)
+                set({isModalOpen:false})
             }
         } catch (error) {
             console.log(error)

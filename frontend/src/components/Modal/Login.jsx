@@ -6,13 +6,13 @@ const Login = ({setIsLoginOpen,setIsSignupOpen}) => {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
 
-    const loginSubmitHandler=(e)=>{
+    const loginSubmitHandler=async(e)=>{
         e.preventDefault()
-        login({email,password})
+        await login({email,password})
     }
     
   return (
-<div className="flex bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-screen-md mx-auto relative">
+<div className="flex bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-screen-md mx-4 relative">
   {/* Left Side - Illustration Area */}
   <div className="hidden sm:block sm:w-1/2 ">
       <img src='/test.jpg' alt="Stylish Illustration" className="w-full h-full object-cover mix-blend-multiply opacity-75" />
