@@ -1,0 +1,104 @@
+  <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="link" className="text-left flex items-center w-full hover:text-[#31B65D]">
+                Grocery
+                <ChevronDown className="ml-2 w-4 h-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[16rem] p-4 bg-white shadow-md rounded-md">  
+              {/* w-[16rem] matches w-64 of sidebar */}
+              <ul>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Rice & Rice Products</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Atta, Flour & Suji</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Cooking Oils & Ghee</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Dals & Pulses</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Dry Fruits</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">salt & Sugar</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Spices & Masala</a></li>
+              </ul>
+            </PopoverContent>
+          </Popover>
+          
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="link" className="text-left flex items-center w-full hover:text-[#31B65D]">
+                Bakery
+                <ChevronDown className="ml-2 w-4 h-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[16rem] p-4 bg-white shadow-md rounded-md">  
+              {/* w-[16rem] matches w-64 of sidebar */}
+              <ul>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Breads</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Muffins & cookies</a></li>
+              </ul>
+            </PopoverContent>
+          </Popover>
+          
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="link" className="text-left flex items-center w-full hover:text-[#31B65D]">
+                HouseHold Items
+                <ChevronDown className="ml-2 w-4 h-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[16rem] p-4 bg-white shadow-md rounded-md">  
+              {/* w-[16rem] matches w-64 of sidebar */}
+              <ul>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Detergents</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Pooja Needs</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Insect & Mosquite Repelients</a></li>
+              </ul>
+            </PopoverContent>
+          </Popover>
+       
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="link" className="text-left flex items-center w-full hover:text-[#31B65D]">
+                Kitchen
+                <ChevronDown className="ml-2 w-4 h-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[16rem] p-4 bg-white shadow-md rounded-md">  
+              {/* w-[16rem] matches w-64 of sidebar */}
+              <ul>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Kitchen Appliances</a></li>
+              </ul>
+            </PopoverContent>
+          </Popover>
+        
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="link" className="text-left flex items-center w-full hover:text-[#31B65D]">
+                Packaged Food
+                <ChevronDown className="ml-2 w-4 h-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[16rem] p-4 bg-white shadow-md rounded-md">  
+              {/* w-[16rem] matches w-64 of sidebar */}
+              <ul>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Biscuits & cookies</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Chocolates & Candles</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Noodles & Pasta</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Pickles & chutney</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Energy Bars</a></li>
+
+              </ul>
+            </PopoverContent>
+          </Popover>
+      
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="link" className="text-left flex items-center w-full hover:text-[#31B65D]">
+                veg & fruits
+                <ChevronDown className="ml-2 w-4 h-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[16rem] p-4 bg-white shadow-md rounded-md">  
+              {/* w-[16rem] matches w-64 of sidebar */}
+              <ul>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">Fruits</a></li>
+                <li><a href="#" className="block p-2 rounded hover:bg-gray-100">vegetables</a></li>
+              </ul>
+            </PopoverContent>
+          </Popover>
