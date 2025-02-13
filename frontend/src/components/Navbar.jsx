@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search, ShoppingCart, Phone, LayoutDashboard, CircleUserRound, LogOut, LogInIcon} from 'lucide-react';
 import SideBar from './SideBar';
 import Auth from './Auth';
+import { ModeToggle } from './ModeToggle';
 
 
 const Navbar = ({user}) => {
@@ -9,7 +10,7 @@ const Navbar = ({user}) => {
  
   return (
     <>
-    <div className="bg-green-600 text-white py-3 px-4 sm:px-6 lg:px-8 flex items-center justify-between shadow-lg sticky top-0 z-10  gap-3">
+    <div className=" bg-baseColor font-grocery text-white py-3 px-4 sm:px-6 lg:px-8 flex items-center justify-between shadow-lg sticky top-0 z-10  gap-3">
         <div className='sm:hidden'>
 					<SideBar/>
 				</div>
@@ -24,7 +25,7 @@ const Navbar = ({user}) => {
         <input
           type="text"
           placeholder="Search products & categories"
-          className="border-none outline-none p-1.5 sm:p-2 text-gray-700 w-full rounded-full placeholder-gray-500 text-sm sm:text-base"
+          className=" placeholder:text-sm border-none outline-none p-1.5 sm:p-2 text-gray-700 w-full rounded-full placeholder-gray-500 text-sm sm:text-base"
         />
       </div>
       
@@ -48,16 +49,18 @@ const Navbar = ({user}) => {
         </span>
       </div>
 
-      <button  className=" cursor-pointer bg-transparent border border-white flex items-center justify-center gap-1 text-white text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
+      <button  className=" cursor-pointer bg-transparent border flex items-center border-white justify-center gap-1  text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
         <CircleUserRound size={20}/>
         <span className='hidden sm:block'> Account</span>
       </button>
 
       {/* Login Button */}
-      <button onClick={()=>setIsLoginOpen(true)} className=" cursor-pointer bg-transparent border border-white flex items-center justify-center gap-1 text-white text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
+      <button onClick={()=>setIsLoginOpen(true)} className=" cursor-pointer bg-transparent border border-white  flex items-center justify-center gap-1  text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:text-white hover:border-green-700 transition-colors duration-200">
         <LogOut size={20}/>
        <span className='hidden sm:block'>LogOut</span>
       </button>
+
+      <ModeToggle />
     </div>}
 
 {user===null && <div className=' flex items-center justify-center gap-10 flex-shrink-0'>
@@ -88,6 +91,7 @@ const Navbar = ({user}) => {
     
       
         <Auth setIsLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen}/>
+        <ModeToggle />
     </div>}
 
 {user?.role==='admin' && <div className='flex items-center justify-center gap-2 sm:gap-7 flex-shrink-0'>
@@ -102,6 +106,7 @@ const Navbar = ({user}) => {
         <LogOut size={20}/>
         <span className='hidden sm:block'>Log Out</span>
       </button>
+      <ModeToggle />
     
     </div> 
 }

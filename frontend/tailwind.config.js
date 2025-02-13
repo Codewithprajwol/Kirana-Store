@@ -7,12 +7,17 @@ export default {
   ],
   theme: {
   	extend: {
+		fontFamily:{
+			grocery:['Grocery']
+		}
+		,
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+			baseColor:'var(--baseColor)',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
