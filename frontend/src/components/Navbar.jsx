@@ -10,7 +10,7 @@ const Navbar = ({user}) => {
  
   return (
     <>
-    <div className=" bg-baseColor font-grocery text-white py-3 px-4 sm:px-6 lg:px-8 flex items-center justify-between shadow-lg sticky top-0 z-10  gap-3">
+    <div className=" bg-baseColor font-grocery text-white py-3 px-3 sm:px-6 lg:px-8 flex items-center justify-between shadow-lg sticky top-0 z-10  gap-3">
         <div className='sm:hidden'>
 					<SideBar/>
 				</div>
@@ -113,6 +113,7 @@ const Navbar = ({user}) => {
 
     
     </div>
+
     <div className="mt-1 items-center bg-white  px-2 sm:px-3 sm:hidden flex flex-grow max-w-full shadow-lg">
         <Search className="text-gray-500 size-6" />
         <input

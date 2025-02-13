@@ -11,7 +11,7 @@ import Footer from './components/Footer'
 const App = () => {
  const user=useUserStore((state)=>state.user)
   return (
-    <div className='min-h-screen  relative  '>
+    <div className='min-h-screen bg-baseBackground  relative  '>
       <Navbar user={user}/>
       <Routes>
         <Route path='/' element={<Homepage />} />
