@@ -4,11 +4,13 @@ import SideBar from './SideBar';
 import Auth from './Auth';
 import { ModeToggle } from './ModeToggle';
 import { useUserStore } from '@/store/useUserStore';
+import { useNavigate } from 'react-router-dom';
 
 
 const Navbar = ({user}) => {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const logout=useUserStore((state)=>state.logout)
+    const navigate=useNavigate()
  
   return (
     <>
@@ -100,7 +102,7 @@ const Navbar = ({user}) => {
 
 {user?.role==='admin' && <div className='flex items-center justify-center gap-2 sm:gap-7 flex-shrink-0'>
       
-      <button  className=" cursor-pointer bg-transparent border border-white flex items-center justify-center gap-1 text-white text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
+      <button onClick={()=>{navigate('/admin')}}  className=" cursor-pointer bg-transparent border border-white flex items-center justify-center gap-1 text-white text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
         <LayoutDashboard size={20}/>
         <span className='hidden sm:block'>Dashboard</span>
       </button>
