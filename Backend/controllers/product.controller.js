@@ -45,16 +45,16 @@ export const createProduct=async(req,res)=>{
         let cloudinaryResponse=null;
 
         if(image){
-            await cloudinary.uploader.upload(image,{folder:'products'})
+           cloudinaryResponse= await cloudinary.uploader.upload(image,{folder:'products'})
         }
         
          const product=await Product.create({
             name,
             description,
             price,
-            image,
+            image: cloudinaryResponse?.secure_url ? cloudinaryResponse.secure_url : "",
             isFeatured,
-            category
+            category,
          })
          res.status(201).json({success:true,messge:'product created successfully',product:{
             name:product.name,
@@ -62,7 +62,8 @@ export const createProduct=async(req,res)=>{
             price:product.price,
             image:product.image,
             isFeatured:product.isFeatured,
-            category:product.category
+            category:product.category,
+            _id:product._id
          }})
     }catch(err){
         console.log('Error in createProduct',err.message);
@@ -94,6 +95,8 @@ export const deleteProduct=async(req,res)=>{
         }
         if(product.image){
             const publicId=product.image.split('/').pop().split('.')[0];
+            console.log(publicId)
+            // tdkc2ayv9kfnfdnhh0wv
             try{
                 await cloudinary.uploader.destroy(`products/${publicId}`);
                 console.log('image deleted from cloudinary')
@@ -107,7 +110,7 @@ export const deleteProduct=async(req,res)=>{
 
     }catch(err){
         console.log('Error in deleteProduct',err.message);
-        res.status(500).json({error:"Internal Server Error"});
+        res.status(500).json({error:"Internal Server Error ho hai"});
     }
 }
 

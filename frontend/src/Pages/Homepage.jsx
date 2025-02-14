@@ -7,8 +7,8 @@ const categories=[
   {href:'/bakery',name:'Bakery',imageUrl:'/categories/bakery.png',color:'#D1B490'},
   {href:'/household',name:'HouseHold',imageUrl:'/categories/household.png',color:'#FFD4CA'},
   {href:'/kitchen',name:'Kitchen',imageUrl:'/categories/kitchen.png',color:'#40798C'},
-  {href:'/packaged',name:'Packaged',imageUrl:'/categories/packaged.png',color:'#AAC0AF'},
-  {href:'/vegetables',name:'Vegetables',imageUrl:'/categories/vegetables.png',color:'#E2E8DD'},
+  {href:'/package',name:'Packaged',imageUrl:'/categories/packaged.png',color:'#AAC0AF'},
+  {href:'/vegetable',name:'Vegetables',imageUrl:'/categories/vegetables.png',color:'#E2E8DD'},
 ]
 
 const Homepage = () => {
