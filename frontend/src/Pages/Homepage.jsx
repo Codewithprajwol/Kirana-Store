@@ -16,9 +16,9 @@ const Homepage = () => {
     <div className='max-w-7xl py-5 px-3 md:px-3 lg:px-0  mx-auto min-h-screen space-y-4'>
       <BannerSlider/>
       <div className='bg-baseSecondaryColor max-w-7xl mx-auto sm:px-3 lg:px-6 rounded-lg p-2 '>
-        <h1 className='text-xl sm:text-2xl font-bold text-white mb-2'>Categories</h1>
+        <h1 className='text-xs sm:text-2xl font-bold text-white mb-2'>Categories</h1>
       <div className='w-full p-2 grid grid-cols-3 sm:grid-cols-6 gap-4 '>
-        {categories.map((category)=><CategoryItem category={category} key={category.name} />)}
+        {categories.map((category)=><CategoryItem  category={category} key={category.name} />)}
       </div>
       </div>
     </div>

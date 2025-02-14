@@ -8,7 +8,8 @@ export default {
   theme: {
   	extend: {
 		fontFamily:{
-			grocery:['Grocery']
+			grocery:['Grocery','sans-serif'],
+			pacifico:['pacifico','sans-serif'],
 		}
 		,
   		borderRadius: {

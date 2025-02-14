@@ -3,10 +3,12 @@ import { Search, ShoppingCart, Phone, LayoutDashboard, CircleUserRound, LogOut, 
 import SideBar from './SideBar';
 import Auth from './Auth';
 import { ModeToggle } from './ModeToggle';
+import { useUserStore } from '@/store/useUserStore';
 
 
 const Navbar = ({user}) => {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const logout=useUserStore((state)=>state.logout)
  
   return (
     <>
@@ -55,7 +57,9 @@ const Navbar = ({user}) => {
       </button>
 
       {/* Login Button */}
-      <button onClick={()=>setIsLoginOpen(true)} className=" cursor-pointer bg-transparent border border-white  flex items-center justify-center gap-1  text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:text-white hover:border-green-700 transition-colors duration-200">
+      <button onClick={()=>{setIsLoginOpen(false)
+        logout()
+      }} className=" cursor-pointer bg-transparent border border-white  flex items-center justify-center gap-1  text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:text-white hover:border-green-700 transition-colors duration-200">
         <LogOut size={20}/>
        <span className='hidden sm:block'>LogOut</span>
       </button>
@@ -102,7 +106,7 @@ const Navbar = ({user}) => {
       </button>
         <Auth setIsLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen}/>
       {/* Login Button */}
-      <button onClick={()=>setIsLoginOpen(true)} className=" cursor-pointer bg-transparent border border-white flex items-center justify-center gap-1 text-white text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
+      <button onClick={()=>{setIsLoginOpen(false);logout()}} className=" cursor-pointer bg-transparent border border-white flex items-center justify-center gap-1 text-white text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
         <LogOut size={20}/>
         <span className='hidden sm:block'>Log Out</span>
       </button>

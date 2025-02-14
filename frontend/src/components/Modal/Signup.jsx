@@ -31,7 +31,7 @@ const Signup = ({setIsLoginOpen,setIsSignupOpen}) => {
 
     {/* Close Button */}
     <div className="absolute top-3 right-5">
-      <button onClick={() => setIsSignupOpen(false)} aria-label="Close">
+      <button onClick={() => setIsSignupOpen(false)} className="text-black" aria-label="Close">
         {/* Replace with your Lucid Icon Component */}
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x">
           <path d="M18 6 6 18" />

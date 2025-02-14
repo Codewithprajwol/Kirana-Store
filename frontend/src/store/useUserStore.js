@@ -8,6 +8,7 @@ export const useUserStore=create((set,get)=>({
     loading:false,
     checkingAuth:true,
     isModalOpen:true,
+    isAuthChecking:true,
     signup:async({fullName:username,email,password,confirmPassword})=>{
         set({loading:true});
 
@@ -41,6 +42,25 @@ export const useUserStore=create((set,get)=>({
             console.log(error)
             set({loading:false})
             toast.error(error.response.data.error || error.response.data.message || "Login Failed")
+        }
+    },
+    authCheck:async()=>{
+        set({isAuthChecking:true})
+        try {
+            const response=await axios.get('/auth/profile')
+            set({isAuthChecking:false,user:response.data})
+        } catch (error) {
+            set({isAuthChecking:false,user:null})
+        }
+    },
+    logout:async()=>{
+        try{
+            const response=await axios.post('/auth/logout')
+            set({user:null,isModalOpen:true})
+            toast.success('Logout successfully')
+
+        }catch(err){
+            toast.err('Logout Error')
         }
     }
 }))
