@@ -11,7 +11,6 @@ export const useProductStore=create((set)=>({
      set({loading:true})
      try{
         const response=await axios.post('/products',productData);
-        console.log(response.data.product)
         set((state)=>({
             products:[...state.products,response.data.product],
             loading:false,
@@ -32,7 +31,6 @@ export const useProductStore=create((set)=>({
         }
     },
     deleteProduct: async (productId) => {
-        console.log('hello productid',productId)
 		set({ loading: true });
 		try {
 			await axios.delete(`/products/${productId}`);
@@ -40,18 +38,20 @@ export const useProductStore=create((set)=>({
 				products: prevProducts.products.filter((product) => product._id !== productId),
 				loading: false,
 			}));
+            toast.success('Product Deleted')
 		} catch (error) {
 			set({ loading: false });
 			toast.error(error.response.data.error || "Failed to delete product");
 		}
 	},
     toggleFeaturedProduct: async (productId) => {
+        console.log(productId)
 		set({ loading: true });
 		try {
 			const response = await axios.patch(`/products/${productId}`);
 			set((prevProducts) => ({
 				products: prevProducts.products.map((product) =>
-					product._id === productId ? { ...product, isFeatured: response.data.updatedProduct } : product
+					product._id === productId ? { ...product, isFeatured: response.data.isFeatured } : product
 				),
 				loading: false,
 			}));
