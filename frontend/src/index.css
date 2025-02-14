@@ -7,10 +7,15 @@
   font-family: 'Grocery';
   src: url("./assets/grocery.ttf");
 }
+@font-face {
+  font-family: 'pacifico';
+  src: url("./assets/grocery.ttf");
+}
 @layer base {
   :root {
     --baseColor:#16A34A;
     --basebackground:#F7F7F7;
+    --baseSecondaryColor:#32965D;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;

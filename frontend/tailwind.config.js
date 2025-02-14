@@ -18,6 +18,7 @@ export default {
   		},
   		colors: {
 			baseColor:'var(--baseColor)',
+			baseSecondaryColor:'var(--baseSecondaryColor)',
 			baseBackground:'var(--basebackground)',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
