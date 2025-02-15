@@ -10,13 +10,19 @@ import Adminpage from './Pages/Adminpage'
 import ErrorPage from './components/ErrorPage'
 import CategoryPage from './Pages/CategoryPage'
 import CartPage from './Pages/CartPage'
+import { useCartStore } from './store/useCartStore'
 
 
 const App = () => {
  const {user,authCheck,isAuthChecking}=useUserStore()
+ const {getCartItems}=useCartStore()
  useEffect(()=>{
   authCheck()
  },[authCheck])
+
+ useEffect(()=>{
+   if(!user) return ;
+  getCartItems()},[getCartItems,user])
 
  if(isAuthChecking) return <LoadingSpinner/>
 

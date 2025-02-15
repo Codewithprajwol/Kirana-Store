@@ -64,7 +64,6 @@ export const useProductStore=create((set)=>({
         set({loading:true})
         try{
             const response=await axios.get(`/products/category/${category}`)
-            console.log(response)
             set({products:response.data.products,loading:false})
         }catch(error){
             console.log(error)
@@ -77,12 +76,3 @@ export const useProductStore=create((set)=>({
 
 
 
-// if(isAuthenticating){
-//     return (
-//       <div className="h-screen w-full home-bg">
-//         <div className="flex justify-center items-center w-full h-full">
-//           <Loader className='animate-spin text-red-600 size-10' />
-//         </div>
-//       </div>
-//     )
-//     }

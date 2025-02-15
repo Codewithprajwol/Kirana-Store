@@ -12,11 +12,11 @@ export const useCartStore=create((set,get)=>({
     getCartItems:async()=>{
         try{
             const res=await axios.get('/carts');
-            set({cart:res.data}) 
+            console.log(res.data.item)
+            set({cart:res.data.item}) 
             get().calcuateTotals()
         }catch(error){
             set({cart:[]})
-            toast.error(error.response.data.message || "An error occured");
         }
     },
     addToCart: async(product)=>{

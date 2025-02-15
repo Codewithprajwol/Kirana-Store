@@ -5,11 +5,13 @@ import Auth from './Auth';
 import { ModeToggle } from './ModeToggle';
 import { useUserStore } from '@/store/useUserStore';
 import { useNavigate } from 'react-router-dom';
+import { useCartStore } from '@/store/useCartStore';
 
 
 const Navbar = ({user}) => {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const logout=useUserStore((state)=>state.logout)
+    const cart=useCartStore((state)=>state.cart)
     const navigate=useNavigate()
  
   return (
@@ -48,9 +50,9 @@ const Navbar = ({user}) => {
       {/* Cart */}
       <div onClick={()=>{navigate('/cart')}} className="relative cursor-pointer hover:text-green-200 transition-colors duration-200 ">
         <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
-        <span className="absolute top-[-6px] right-[-6px] bg-red-600 text-white text-[8px] sm:text-[10px] font-medium rounded-full px-1.5 sm:px-2 py-0.5">
-          0
-        </span>
+        {cart.length>0 && (<span className="absolute top-[-6px] right-[-6px] bg-red-600 text-white text-[8px] sm:text-[10px] font-medium rounded-full px-1.5 sm:px-2 py-0.5">
+          {cart.length}
+        </span>)}
       </div>
 
       <button  className=" cursor-pointer bg-transparent border flex items-center border-white justify-center gap-1  text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
@@ -119,7 +121,6 @@ const Navbar = ({user}) => {
 
     
     </div>
-
     <div className="mt-1 items-center bg-white  px-2 sm:px-3 sm:hidden flex flex-grow max-w-full shadow-lg">
         <Search className="text-gray-500 size-6" />
         <input
