@@ -16,6 +16,7 @@
     --baseColor:#16A34A;
     --basebackground:#F7F7F7;
     --baseSecondaryColor:#32965D;
+    --baseProductbg:#F1FFFA;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -44,7 +45,8 @@
   }
   .dark {
     --baseColor:#16A34A;
-    --basebackground:#111;
+    --basebackground:#2E3138;
+    --baseProductbg:#1A281F;
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;

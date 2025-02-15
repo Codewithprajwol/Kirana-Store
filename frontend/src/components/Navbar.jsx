@@ -46,7 +46,7 @@ const Navbar = ({user}) => {
       </div>
 
       {/* Cart */}
-      <div className="relative cursor-pointer hover:text-green-200 transition-colors duration-200 ">
+      <div onClick={()=>{navigate('/cart')}} className="relative cursor-pointer hover:text-green-200 transition-colors duration-200 ">
         <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
         <span className="absolute top-[-6px] right-[-6px] bg-red-600 text-white text-[8px] sm:text-[10px] font-medium rounded-full px-1.5 sm:px-2 py-0.5">
           0
@@ -80,7 +80,7 @@ const Navbar = ({user}) => {
       </div>
 
       {/* Cart */}
-      <div className="relative cursor-pointer hover:text-green-200 transition-colors duration-200 ">
+      <div onClick={()=>{navigate('/cart')}} className="relative cursor-pointer hover:text-green-200 transition-colors duration-200 ">
         <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
         <span className="absolute top-[-6px] right-[-6px] bg-red-600 text-white text-[8px] sm:text-[10px] font-medium rounded-full px-1.5 sm:px-2 py-0.5">
           0

@@ -60,4 +60,29 @@ export const useProductStore=create((set)=>({
 			toast.error(error.response.data.error || "Failed to update product");
 		}
 	},
+    getProductsByCategory:async(category)=>{
+        set({loading:true})
+        try{
+            const response=await axios.get(`/products/category/${category}`)
+            console.log(response)
+            set({products:response.data.products,loading:false})
+        }catch(error){
+            console.log(error)
+            toast.error('error in fetching category products')
+            set({loading:false})
+        }
+    }
 }))
+
+
+
+
+// if(isAuthenticating){
+//     return (
+//       <div className="h-screen w-full home-bg">
+//         <div className="flex justify-center items-center w-full h-full">
+//           <Loader className='animate-spin text-red-600 size-10' />
+//         </div>
+//       </div>
+//     )
+//     }

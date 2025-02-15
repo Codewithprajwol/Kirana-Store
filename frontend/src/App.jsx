@@ -4,11 +4,12 @@ import { Toaster } from 'react-hot-toast'
 import { useUserStore } from './store/useUserStore'
 import {  Route, Routes } from 'react-router-dom'
 import Homepage from './Pages/Homepage'
-import CartItem from './Pages/CartItem'
 import Footer from './components/Footer'
 import LoadingSpinner from './components/LoadingSpinner'
 import Adminpage from './Pages/Adminpage'
 import ErrorPage from './components/ErrorPage'
+import CategoryPage from './Pages/CategoryPage'
+import CartPage from './Pages/CartPage'
 
 
 const App = () => {
@@ -24,8 +25,9 @@ const App = () => {
       <Navbar user={user}/>
       <Routes>
         <Route path='/' element={<Homepage />} />
-        <Route path='/cart/:id' element={<CartItem />} />
         <Route path='/admin' element={user?.role==='admin'?<Adminpage/>:<ErrorPage/> }/>
+        <Route path='/category/:category' element={<CategoryPage/> }/>
+        <Route path='/cart' element={user?<CartPage/>:<ErrorPage/>} />
       </Routes>
       <Toaster/>
       <Footer/>

@@ -21,6 +21,7 @@ export default {
 			baseColor:'var(--baseColor)',
 			baseSecondaryColor:'var(--baseSecondaryColor)',
 			baseBackground:'var(--basebackground)',
+			baseProductCardbg:'var(--baseProductbg)',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

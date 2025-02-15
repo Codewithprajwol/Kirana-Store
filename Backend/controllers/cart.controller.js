@@ -14,6 +14,7 @@ export const getAllCartItems=async(req,res)=>{
 }
 export const addToCart=async(req,res)=>{
     const{productId}=req.body;
+    const user=req.user;
     try{
             const existingProduct=user.cartItems.find(item=>item.product===productId)
             if(existingProduct){

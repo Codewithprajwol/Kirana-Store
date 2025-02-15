@@ -3,12 +3,12 @@ import CategoryItem from '@/components/homepageComponents/CategoryItem'
 import React from 'react'
 
 const categories=[
-  {href:'/grocery',name:'Grocery',imageUrl:'/categories/grocery.png',color:'#E9D985'},
-  {href:'/bakery',name:'Bakery',imageUrl:'/categories/bakery.png',color:'#D1B490'},
-  {href:'/household',name:'HouseHold',imageUrl:'/categories/household.png',color:'#FFD4CA'},
-  {href:'/kitchen',name:'Kitchen',imageUrl:'/categories/kitchen.png',color:'#40798C'},
-  {href:'/package',name:'Packaged',imageUrl:'/categories/packaged.png',color:'#AAC0AF'},
-  {href:'/vegetable',name:'Vegetables',imageUrl:'/categories/vegetables.png',color:'#E2E8DD'},
+  {href:'/category/grocery',name:'Grocery',imageUrl:'/categories/grocery.png',color:'#E9D985'},
+  {href:'/category/bakery',name:'Bakery',imageUrl:'/categories/bakery.png',color:'#D1B490'},
+  {href:'/category/household',name:'HouseHold',imageUrl:'/categories/household.png',color:'#FFD4CA'},
+  {href:'/category/kitchen',name:'Kitchen',imageUrl:'/categories/kitchen.png',color:'#40798C'},
+  {href:'/category/package',name:'Packaged',imageUrl:'/categories/packaged.png',color:'#AAC0AF'},
+  {href:'/category/vegetable',name:'Vegetables',imageUrl:'/categories/vegetables.png',color:'#E2E8DD'},
 ]
 
 const Homepage = () => {
