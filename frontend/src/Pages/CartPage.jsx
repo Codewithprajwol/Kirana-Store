@@ -5,10 +5,10 @@ import EmptyCartUI from "@/components/cartComponent/EmptyCartUI";
 import CartItem from "@/components/cartComponent/CartItem";
 import PeopleAlsoBought from "@/components/cartComponent/PeopleAlsoBought";
 import OrderSummary from "@/components/cartComponent/OrderSummary";
+import GiftCouponCard from "@/components/cartComponent/GiftCouponCard";
 
 const CartPage = () => {
 	const { cart } = useCartStore();
-  console.log(cart)
 
 	return (
 		<div className='py-8 md:py-16'>
