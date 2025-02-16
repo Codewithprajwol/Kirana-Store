@@ -4,6 +4,8 @@ import Coupon from '../models/coupon.model.js';
 import Order from '../models/order.model.js';
 
 
+
+
 export const createCheckoutSession=async(req,res)=>{
     try{
         const {products,couponCode}=req.body;
@@ -14,7 +16,7 @@ export const createCheckoutSession=async(req,res)=>{
 
         const lineItems=products.map((product)=>{
             const amount= Math.round(product.price*100)
-            totalAmount+=amount * product.quantity
+            totalAmount+=product.price * product.quantity
 
             return {
                 price_data:{
@@ -30,7 +32,7 @@ export const createCheckoutSession=async(req,res)=>{
         })
         let coupon=null;
         if(couponCode){
-            coupon=await coupon.findOne({code:couponCode,userId:req.user._id,isActive:true})
+            coupon=await Coupon.findOne({code:couponCode,userId:req.user._id,isActive:true})
             if(coupon){
                 totalAmount-=Math.round(totalAmount*coupon.discountPercentage/100)
             }
@@ -56,9 +58,10 @@ export const createCheckoutSession=async(req,res)=>{
                 )     
               }
         })
-        if(totalAmount >=20000){
+        if(totalAmount >=200){
             await createNewCoupon(req.user._id);
         }
+        console.log(totalAmount)
         res.status(200).json({id:session.id,totalAmount:totalAmount/100});
 
     }catch(err){

@@ -1,9 +1,8 @@
-import stripe from "../lib/stripe.js";
 import Coupon from "../models/coupon.model.js"
 
 export const getCoupon=async(req,res)=>{
     try{
-        const coupon=await Coupon.findOne({userId:req.user_id,isActive:true})
+        const coupon=await Coupon.findOne({userId:req.user._id,isActive:true})
         res.json(coupon || null)
     }catch(err){
         console.log('Errorin getCoupon controller',err.message);
@@ -26,7 +25,7 @@ export const validateCoupon=async(req,res)=>{
        }
        res.json({
         message:"coupon is valid",
-        code:coupon.code
+        coupon:coupon
        })
     }catch(err){
         console.log('Error in validateCopuon Controller',err.message)
