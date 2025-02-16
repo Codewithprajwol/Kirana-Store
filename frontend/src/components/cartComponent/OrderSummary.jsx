@@ -9,8 +9,11 @@ const stripePromise = loadStripe(
 );
 
 const OrderSummary = () => {
-	const { total, subtotal,isCouponApplied,coupon,cart } = useCartStore();
+	let { total, subtotal,isCouponApplied,couponAvailable,coupon,cart } = useCartStore();
 	const savings = subtotal - total;
+	if(!isCouponApplied){
+		total=total+savings;
+	}
 	const formattedSubtotal = subtotal.toFixed(2);
 	const formattedTotal = total.toFixed(2);
 	const formattedSavings = savings.toFixed(2);
@@ -49,7 +52,7 @@ const OrderSummary = () => {
 						<dd className='text-base font-medium text-white'>NRs {formattedSubtotal}</dd>
 					</dl>
 
-					{savings > 0 && (
+					{savings > 0 && isCouponApplied &&(
 						<dl className='flex items-center justify-between gap-4'>
 							<dt className='text-base font-normal text-gray-300'>Savings</dt>
 							<dd className='text-base font-medium text-emerald-400'>-NRs {formattedSavings}</dd>

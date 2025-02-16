@@ -4,15 +4,23 @@ import { useEffect, useState } from "react";
 
 const GiftCouponCard = () => {
 	const [userInputCode, setUserInputCode] = useState("");
-	const { coupon, isCouponApplied, applyCoupon, getMyCoupon, removeCoupon } = useCartStore();
+	const { cart,coupon, isCouponApplied, applyCoupon,couponAvailable, getMyCoupon, removeCoupon } = useCartStore();
 
 	useEffect(() => {
-		getMyCoupon();
-	}, [getMyCoupon]);
+		setTimeout(()=>{
+			getMyCoupon();
+		},500)
+		
+	}, [getMyCoupon,cart]);
 
 	useEffect(() => {
-		if (coupon) setUserInputCode(coupon.code);
-	}, [coupon]);
+		if (coupon && couponAvailable) 
+			{
+				setUserInputCode(coupon.code)
+			}else{
+				setUserInputCode(" ")
+			}
+	}, [coupon,cart]);
 
 	const handleApplyCoupon = () => {
 		if (!userInputCode) return;
@@ -59,7 +67,7 @@ const GiftCouponCard = () => {
 					Apply Code
 				</motion.button>
 			</div>
-			{isCouponApplied && coupon && (
+			{isCouponApplied && coupon &&   (
 				<div className='mt-4'>
 					<h3 className='text-lg font-medium text-gray-300'>Applied Coupon</h3>
 

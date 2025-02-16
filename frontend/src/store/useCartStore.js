@@ -9,7 +9,7 @@ export const useCartStore=create((set,get)=>({
     total:0,
     subtotal:0,
     isCouponApplied:false,
-
+    couponAvailable:true,
     getMyCoupon: async () => {
 		try {
 			const response = await axios.get("/coupons");
@@ -21,7 +21,6 @@ export const useCartStore=create((set,get)=>({
 	applyCoupon: async (code) => {
 		try {
 			const response = await axios.post("/coupons/validate", { code });
-            console.log(response)
 			set({ coupon: response.data.coupon, isCouponApplied: true });
 			get().calculateTotals();
 			toast.success("Coupon applied successfully");
@@ -60,7 +59,6 @@ export const useCartStore=create((set,get)=>({
         }
     },
     updateQuantity:async(productId,quantity)=>{
-        console.log(quantity)
             if(quantity===0){
                 get().removeFromCart(productId);
                 return; 
@@ -83,10 +81,22 @@ export const useCartStore=create((set,get)=>({
         const {cart,coupon}=get();
         const subtotal=cart.reduce((sum,item)=>sum+item.price * item.quantity,0);
         let total=subtotal;
-        if(coupon){
+        if(coupon && total>=200){
             const discount=subtotal *(coupon.discountPercentage/100);
             total=subtotal-discount;
         }
         set({subtotal,total});
+    },
+    checkAmountforCouponGeneration:async(products)=>{
+        set({couponAvailable:true})
+        try{
+            const response=await axios.post('/payments/checkAmount',{products});
+            if(response.data.totalAmount<200){
+                set({couponAvailable:false,isCouponApplied:false,coupon:null})
+            }
+
+        }catch(err){
+            console.log(err)
+        }
     }
 }))

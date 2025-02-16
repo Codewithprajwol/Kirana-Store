@@ -6,9 +6,17 @@ import CartItem from "@/components/cartComponent/CartItem";
 import PeopleAlsoBought from "@/components/cartComponent/PeopleAlsoBought";
 import OrderSummary from "@/components/cartComponent/OrderSummary";
 import GiftCouponCard from "@/components/cartComponent/GiftCouponCard";
+import { useEffect } from "react";
 
 const CartPage = () => {
-	const { cart } = useCartStore();
+	const { cart,checkAmountforCouponGeneration } = useCartStore();
+
+	useEffect(() => {
+	      async function fetchCoupon(){
+		await checkAmountforCouponGeneration(cart)
+	}
+	fetchCoupon()
+	},[cart])
 
 	return (
 		<div className='py-8 md:py-16'>

@@ -4,7 +4,27 @@ import Coupon from '../models/coupon.model.js';
 import Order from '../models/order.model.js';
 
 
-
+export const checkAmountForCouponGeneration=async(req,res)=>{
+    try{
+        const {products}=req.body
+        const user=req.user;
+        let totalAmount=0;
+        const existingCoupon=await Coupon.findOne({userId:user._id})
+        products.map((product)=>{
+            totalAmount+=product.price * product.quantity
+        })
+        if(!existingCoupon && totalAmount >=200){
+            await createNewCoupon(req.user._id);
+        }
+        else if(existingCoupon && totalAmount<200){
+            await Coupon.findOneAndDelete({userId:user._id}) 
+        }
+        res.status(200).json({totalAmount})
+    }catch(err){
+       console.log('Error in checkAmountForCouponGeneration Controller',err.message);
+         res.status(500).json({error:"Internal Server Error"})
+    }
+}
 
 export const createCheckoutSession=async(req,res)=>{
     try{
@@ -58,9 +78,7 @@ export const createCheckoutSession=async(req,res)=>{
                 )     
               }
         })
-        if(totalAmount >=200){
-            await createNewCoupon(req.user._id);
-        }
+        
         console.log(totalAmount)
         res.status(200).json({id:session.id,totalAmount:totalAmount/100});
 
