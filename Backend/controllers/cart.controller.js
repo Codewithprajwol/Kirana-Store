@@ -59,10 +59,10 @@ export const updateQuantity=async(req,res)=>{
         const {quantity}=req.body;
         const user=req.user;
 
-        const existingProduct=user.cartItems.find(item=>item.product===productId)
+        const existingProduct=user.cartItems.find(item=>item.product.toString()===productId)
         if(existingProduct){
             if(quantity===0){
-                user.cartItems=user.cartItems.filter((item)=>item.product!==productId);
+                user.cartItems=user.cartItems.filter((item)=>item.product.toString()!==productId);
                 await user.save();
                 return res.json(user.cartItems)
             }

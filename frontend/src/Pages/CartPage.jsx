@@ -7,6 +7,7 @@ import PeopleAlsoBought from "@/components/cartComponent/PeopleAlsoBought";
 
 const CartPage = () => {
 	const { cart } = useCartStore();
+  console.log(cart)
 
 	return (
 		<div className='py-8 md:py-16'>
