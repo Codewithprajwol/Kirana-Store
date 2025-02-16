@@ -4,6 +4,7 @@ import { useCartStore } from "@/store/useCartStore";
 import EmptyCartUI from "@/components/cartComponent/EmptyCartUI";
 import CartItem from "@/components/cartComponent/CartItem";
 import PeopleAlsoBought from "@/components/cartComponent/PeopleAlsoBought";
+import OrderSummary from "@/components/cartComponent/OrderSummary";
 
 const CartPage = () => {
 	const { cart } = useCartStore();
@@ -38,8 +39,8 @@ const CartPage = () => {
 							animate={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.5, delay: 0.4 }}
 						>
-							{/* <OrderSummary />
-							<GiftCouponCard /> */}
+							<OrderSummary />
+							<GiftCouponCard />
 						</motion.div>
 					)}
 				</div>

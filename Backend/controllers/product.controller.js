@@ -74,7 +74,7 @@ export const createProduct=async(req,res)=>{
 export const getRecommendedProducts=async(req,res)=>{
     try{
         const products=await Product.aggregate([
-            {$sample:{size:5}},
+            {$sample:{size:4}},
             {$project:{name:1,price:1,image:1,_id:1,description:1}
         }
         ])
