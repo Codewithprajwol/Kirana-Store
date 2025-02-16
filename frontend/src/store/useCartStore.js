@@ -75,7 +75,12 @@ export const useCartStore=create((set,get)=>({
 		get().calculateTotals();
 	},
     clearCart: async () => {
+        try{
+            await axios.get('/carts/deletecart')
 		set({ cart: [], coupon: null, total: 0, subtotal: 0 });
+        }catch(error){
+            console.log(error)
+        }
 	},
     calculateTotals:()=>{
         const {cart,coupon}=get();

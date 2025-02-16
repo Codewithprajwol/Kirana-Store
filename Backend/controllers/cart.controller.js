@@ -32,8 +32,20 @@ export const addToCart=async(req,res)=>{
         res.status(500).json({error:"Internal Server Error"});
     }
 }
-
 export const deleteAllFromCart=async(req,res)=>{
+    try{
+        const user=req.user;
+        user.cartItems=[];
+        await user.save();
+        console.log('delete items')
+        res.json(user.cartItems);
+    }catch(err){
+        console.log('Error in deleteAllFromCart',err.message);
+        res.status(500).json({error:"Internal Server Error"});
+    }
+}
+
+export const deleteItemFromCart=async(req,res)=>{
     try{
         const {id}=req.params;
         console.log(id)
