@@ -35,12 +35,14 @@ export const addToCart=async(req,res)=>{
 
 export const deleteAllFromCart=async(req,res)=>{
     try{
-        const {productId}=req.body;
+        const {id}=req.params;
+        console.log(id)
         const user=req.user;
-        if(!productId){
+        if(!id){
             user.cartItems=[];
         }else{
-            user.cartItems.filter(item=>item.product!==productId)
+           const data= user.cartItems.filter(item=>item.product.toString()!==id)
+           user.cartItems=data;
         }
         await user.save()
         res.json(user.cartItems)
@@ -53,7 +55,7 @@ export const deleteAllFromCart=async(req,res)=>{
 
 export const updateQuantity=async(req,res)=>{
     try{
-        const{id:productId}=req.params;
+        const{productId}=req.params;
         const {quantity}=req.body;
         const user=req.user;
 

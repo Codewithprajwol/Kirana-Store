@@ -13,7 +13,7 @@ export const useCartStore=create((set,get)=>({
         try{
             const res=await axios.get('/carts');
             set({cart:res.data.item}) 
-            get().calcuateTotals()
+            get().calculateTotals()
         }catch(error){
             set({cart:[]})
         }
@@ -27,12 +27,19 @@ export const useCartStore=create((set,get)=>({
                 const newCart=existingItem ? state.cart.map((item)=>(item._id=== product._id?{...item,quantity:item.quantity+1}:item)):[...state.cart,{...product,quantity:1}]
                 return {cart:newCart};
             })
-            get().calcuateTotals();
+            get().calculateTotals();
         }catch(error){
-            toast.error(error.response.data.message ||'An error occured')
+            console.log(error)
+            toast.error('An error occured')
         }
     },
-    calcuateTotals:()=>{
+    removeFromCart: async (productId) => {
+        console.log(productId)
+		await axios.delete(`/carts/${productId}` );
+		set((prevState) => ({ cart: prevState.cart.filter((item) => item._id !== productId) }));
+		get().calculateTotals();
+	},
+    calculateTotals:()=>{
         const {cart,coupon}=get();
         const subtotal=cart.reduce((sum,item)=>sum+item.price * item.quantity,0);
         let total=subtotal;
