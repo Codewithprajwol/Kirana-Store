@@ -39,7 +39,7 @@ export const createCheckoutSession=async(req,res)=>{
             payment_method_types:['card'],
             line_items:lineItems,
             mode:"payment",
-            success_url:`${ENV_VARS.CLIENT_URL}/success?seesion_id=(CHECKOUT_SESSION_ID)`,
+            success_url:`${ENV_VARS.CLIENT_URL}/purchase-success?session_id={{CHECKOUT_SESSION_ID}}`,
             cancel_url:`${ENV_VARS.CLIENT_URL}/purchase-cancel`,
             discounts:coupon?[{
                 coupon:await createStripeCoupon(coupon.discountPercentage)
@@ -71,9 +71,10 @@ export const createCheckoutSession=async(req,res)=>{
 export const checkoutSuccess=async(req,res)=>{
     try{
         const {sessionId}=req.body;
-        const session=await stripe.checkout.sessions.retrive(sessionId);
+        const formattedSessionId=sessionId.slice(1,-1)
+        const session = await stripe.checkout.sessions.retrieve(formattedSessionId);
 
-        if(session.payment_status="paid"){
+        if(session.payment_status==="paid"){
             if(session.metadata.couponCode){
                 await Coupon.findOneAndUpdate({
                     code:session.metadata.couponCode,
@@ -84,7 +85,7 @@ export const checkoutSuccess=async(req,res)=>{
             }
 
         }
-        //create a new Order
+        // create a new Order
         const products=JSON.parse(session.metadata.products);
         const newOrder=new Order({
             user:session.metadata.userId,
@@ -103,7 +104,7 @@ export const checkoutSuccess=async(req,res)=>{
             orderId:newOrder._id
         })
     }catch(err){
-        console.log('Error in checkoutSuccess controller',err.messsage)
+        console.log('Error in checkoutSuccess controller',err)
         res.status(500).json({error:"Internal Server Error"})
     }
 }
@@ -126,4 +127,4 @@ async function createNewCoupon(userId){
     })
     await newCoupon.save();
     return newCoupon;
-} 
+}  

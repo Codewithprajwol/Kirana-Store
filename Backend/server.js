@@ -22,7 +22,7 @@ app.use('/api/auth',userRoutes);
 app.use('/api/products',productRoutes);
 app.use('/api/carts',cartRoutes)
 app.use('/api/coupons',couponRoutes)
-app.use('/api/payment',orderRoutes)
+app.use('/api/payments',orderRoutes)
 app.use('/api/analytics',analyticRoutes)
 
 app.listen(PORT, () => {

@@ -11,6 +11,8 @@ import ErrorPage from './components/ErrorPage'
 import CategoryPage from './Pages/CategoryPage'
 import CartPage from './Pages/CartPage'
 import { useCartStore } from './store/useCartStore'
+import PurchaseSuccessPage from './Pages/PurchaseSuccessPage'
+import PurchaseCancelPage from './Pages/PurchaseCancelPage'
 
 
 const App = () => {
@@ -34,6 +36,8 @@ const App = () => {
         <Route path='/admin' element={user?.role==='admin'?<Adminpage/>:<ErrorPage/> }/>
         <Route path='/category/:category' element={<CategoryPage/> }/>
         <Route path='/cart' element={user?<CartPage/>:<ErrorPage/>} />
+        <Route path='/purchase-success' element={user?<PurchaseSuccessPage/>:<ErrorPage/>} />
+        <Route path='/purchase-cancel' element={user?<PurchaseCancelPage/>:<ErrorPage/>} />
       </Routes>
       <Toaster/>
       <Footer/>
