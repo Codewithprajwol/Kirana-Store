@@ -81,6 +81,29 @@ export const useProductStore=create((set)=>({
 			console.log("Error fetching featured products:", error);
 		}
 	},
+
+    fetchSearchProducts:async(query)=>{
+        set({loading:true})
+        try{
+            const response=await axios.get(`/products/search?search=${query}`);
+            set({loading:false})
+            console.log(response.data)
+            return response.data;
+
+        }catch(err){
+            set({loading:false})
+            console.log('Error in fetchSearchProducts',err.message)
+        }
+    },
+    fetchProductDetails:async(productId)=>{
+        try{
+            const response=await axios.get(`/products/${productId}`);
+            console.log(response.data)
+            return response.data;
+        }catch(error){
+            console.log('Error in fetchProductDetails',error.message)
+        }
+    },
 }))
 
 

@@ -6,6 +6,7 @@ import { ModeToggle } from './ModeToggle';
 import { useUserStore } from '@/store/useUserStore';
 import { useNavigate } from 'react-router-dom';
 import { useCartStore } from '@/store/useCartStore';
+import SearchBar from './SearchBar';
 
 
 const Navbar = ({user}) => {
@@ -27,12 +28,8 @@ const Navbar = ({user}) => {
 
       {/* Search Bar */}
       <div className=" hidden items-center bg-white rounded-full px-2 sm:px-3 sm:flex flex-grow max-w-full sm:max-w-md lg:max-w-2xl focus-within:ring-2 focus-within:ring-green-300 transition-shadow duration-200">
-        <Search className="text-gray-500 w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
-        <input
-          type="text"
-          placeholder="Search products & categories"
-          className=" placeholder:text-sm border-none outline-none p-1.5 sm:p-2 text-gray-700 w-full rounded-full placeholder-gray-500 text-sm sm:text-base"
-        />
+      <SearchBar />
+        
       </div>
       
       
@@ -121,14 +118,17 @@ const Navbar = ({user}) => {
 
     
     </div>
-    <div className="mt-1 items-center bg-white  px-2 sm:px-3 sm:hidden flex flex-grow max-w-full shadow-lg">
+    {/* <div className="mt-1 items-center bg-white  px-2 sm:px-3 sm:hidden flex flex-grow max-w-full shadow-lg">
         <Search className="text-gray-500 size-6" />
         <input
           type="text"
           placeholder="Search products & categories"
           className="border-none outline-none p-1.5 text-gray-700 w-full  placeholder-gray-500 text-md"
         />
-    </div>
+    </div> */}
+      <div className="mt-1 items-center bg-white  px-2 sm:px-3 sm:hidden flex flex-grow max-w-full shadow-lg ">
+          <SearchBar />
+      </div>
 
     </>
   );

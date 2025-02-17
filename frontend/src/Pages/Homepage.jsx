@@ -14,7 +14,8 @@ const categories=[
 ]
 
 const Homepage = () => {
-  const {loading,fetchFeaturedProducts,products} = useProductStore()
+  const {fetchFeaturedProducts,products} = useProductStore()
+
   useEffect(()=>{
     fetchFeaturedProducts()
   },[fetchFeaturedProducts])
@@ -27,7 +28,7 @@ const Homepage = () => {
         {categories.map((category)=><CategoryItem  category={category} key={category.name} />)}
       </div>
       </div>
-      {!loading && products?.length > 0 && <FeaturedProducts featuredProducts={products}/> }
+      {products?.length > 0 && <FeaturedProducts featuredProducts={products}/> }
     </div>
   )
 }

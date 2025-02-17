@@ -2,6 +2,47 @@ import cloudinary from "../lib/cloudinary.js";
 import { redis } from "../lib/redis.js";
 import Product from "../models/product.model.js";
 
+
+export const getProductDetails=async(req,res)=>{
+    try{
+        const {productId}=req.params;
+        const productDetail=await Product.findById(productId);
+        if(!productDetail){
+            return res.status(404).json({error:"product not found"});
+        }
+        res.json(productDetail);
+
+    }catch(error){
+        console.log('Error in getProductDetails',error.message);
+        res.status(500).json({error:"Internal Server Error"});
+    }
+}
+
+export const getProductsBySearch=async(req,res)=>{
+    try{
+        const searchTerm = req.query.search || ''; 
+
+        let query = {}; // Start with an empty query object
+    
+        if (searchTerm || typeof searchTerm === 'string') { // If there is a search term
+          query = {  // Build the query object based on the search term
+            $or: [  // Use $or to search multiple fields
+              { name: { $regex: searchTerm, $options: 'i' } }, // Case-insensitive search in the name field
+              { category: { $regex: searchTerm, $options: 'i' } }  // case-insensitive search in the category field
+            ]
+          };
+        }
+    
+        const products = await Product.find(query); // Find products that match the query
+    
+        res.status(200).json(products); // Send the products as JSON
+
+    }catch(err){
+        console.log('Error in getProductsBySearch',err.message);
+        res.status(500).json({error:"Internal Server Error"});
+    }
+}
+
 export const getFeaturedProducts=async(req,res)=>{
     try{
         let featuredProducts=await redis.get('featuredProducts')
