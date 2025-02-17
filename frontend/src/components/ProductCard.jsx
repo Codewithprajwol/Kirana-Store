@@ -3,6 +3,7 @@ import { ShoppingCart } from "lucide-react";
 import { useUserStore } from '@/store/useUserStore';
 import toast from 'react-hot-toast';
 import { useCartStore } from '@/store/useCartStore';
+import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
     const {image,name,price}=product 
@@ -21,7 +22,7 @@ const ProductCard = ({ product }) => {
     }
     
   return (
-    <div className="bg-baseProductCardbg rounded shadow-xl overflow-hidden flex flex-col justify-between">
+    <Link to={`/product/${product._id}`} className="bg-baseProductCardbg rounded shadow-xl overflow-hidden flex flex-col justify-between">
       <img className="w-full h-48 object-contain" src={image} alt={name} />
       <div className="p-4">
         <h3 className="text-lg font-semibold mb-2">{name}</h3>
@@ -32,7 +33,7 @@ const ProductCard = ({ product }) => {
           <ShoppingCart/>Add to cart
         </button>
       </div>
-    </div>
+    </Link>
   );
 };
 

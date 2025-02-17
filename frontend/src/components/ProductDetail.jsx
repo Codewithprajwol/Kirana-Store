@@ -2,12 +2,36 @@ import axios from '@/lib/axios';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loader2, AlertTriangle } from 'lucide-react'; // Icons
+import { useCartStore } from '@/store/useCartStore';
+import { useUserStore } from '@/store/useUserStore';
+import toast from 'react-hot-toast';
 
 const ProductDetail = () => {
+
+  const addToCart=useCartStore((state)=>state.addToCart)
+  const user=useUserStore((state)=>state.user)
     const [isLoading, setIsLoading] = useState(false);
     const [product, setProduct] = useState(null);
     const { productId } = useParams();
     const [error, setError] = useState(null);
+
+      useEffect(() => {
+        window.scrollTo(0, 0);
+        }, []);
+      
+        const handleAddtoCart=()=>{
+          if (!user) {
+            toast.error("Please login to add products to cart", { id: "login" });
+            return;
+          } 
+          else if(user.role==="admin"){
+              toast.error("You are admin of this Ecommerce store", { id: "login" });
+              return
+          }
+          else {
+            addToCart(product);
+          }
+        }
 
     useEffect(() => {
         const fetchProductDetails = async (productId) => {
@@ -83,7 +107,7 @@ const ProductDetail = () => {
                         </div>
 
                         {/* Add to Cart Button */}
-                        <button className="bg-baseSecondaryColor text-white hover:bg-baseColor  font-bold py-3 px-6 rounded-xl transition duration-300 text-lg">
+                        <button onClick={handleAddtoCart} className="bg-baseSecondaryColor text-white hover:bg-baseColor  font-bold py-3 px-6 rounded-xl transition duration-300 text-lg">
                             Add to Cart
                         </button>
                     </div>

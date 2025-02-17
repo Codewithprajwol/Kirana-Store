@@ -3,7 +3,7 @@ import React from 'react';
 const UserProfile = ({ user }) => {
     console.log(user)
   return (
-    <div className="min-h-screen bg-green-50 py-6 flex flex-col justify-center sm:py-12 px-3 rounded-lg">
+    <div className="min-h-screen bg-green-50 py-6 flex flex-col justify-center sm:py-12 px-3 ">
       <div className="relative py-3 sm:max-w-md sm:mx-auto">
         <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-600 shadow-md transform -skew-y-3 sm:skew-y-0 sm:-rotate-3 sm:rounded-xl"></div>
         <div className="relative px-4 py-8 bg-white shadow-lg sm:rounded-xl sm:p-12">

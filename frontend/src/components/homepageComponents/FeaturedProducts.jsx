@@ -3,6 +3,7 @@ import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import { useCartStore } from "@/store/useCartStore";
 import { useUserStore } from "@/store/useUserStore";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 
 const FeaturedProducts = ({featuredProducts}) => {
@@ -11,8 +12,10 @@ const FeaturedProducts = ({featuredProducts}) => {
 
 	const { addToCart } = useCartStore();
     const user=useUserStore((state)=>state.user);
-    const handleAddToCart=()=>{
-        if (!user && user.role==='admin') {
+    const handleAddToCart=(product,e)=>{
+		e.preventDefault();
+		e.stopPropagation(); 
+        if (!user) {
           toast.error("Please login to add products to cart", { id: "login" });
           return;
         } 
@@ -61,7 +64,7 @@ const FeaturedProducts = ({featuredProducts}) => {
 							style={{ transform: `translateX(-${currentIndex * (100 / itemsPerPage)}%)` }}
 						>
 							{featuredProducts?.map((product) => (
-								<div key={product._id} className='w-full sm:w-1/2 lg:w-1/3 xl:w-1/5 flex-shrink-0  px-2'>
+								<Link to={`/product/${product._id}`}   key={product._id} className='w-full sm:w-1/2 lg:w-1/3 xl:w-1/5 flex-shrink-0  px-2'>
 									<div className='bg-baseProductCardbg  rounded-lg shadow-sm overflow-hidden h-full transition-all duration-300 hover:shadow-xl border border-emerald-500/30'>
 										<div className='overflow-hidden'>
 											<img
@@ -76,7 +79,7 @@ const FeaturedProducts = ({featuredProducts}) => {
 												${product.price.toFixed(2)}
 											</p>
 											<button
-												onClick={handleAddToCart}
+												onClick={(e)=>{handleAddToCart(product,e)}}
 												className='w-full bg-baseSecondaryColor hover:bg-baseColor font-semibold py-2 px-4 rounded transition-colors duration-300 
 												flex items-center justify-center'
 											>
@@ -85,7 +88,7 @@ const FeaturedProducts = ({featuredProducts}) => {
 											</button>
 										</div>
 									</div>
-								</div>
+								</Link>
 							))}
 						</div>
 					</div>

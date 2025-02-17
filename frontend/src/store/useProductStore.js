@@ -70,7 +70,6 @@ export const useProductStore=create((set)=>({
             set({loading:false})
         }
     },
-
     fetchFeaturedProducts: async () => {
 		set({ loading: true });
 		try {
@@ -81,7 +80,6 @@ export const useProductStore=create((set)=>({
 			console.log("Error fetching featured products:", error);
 		}
 	},
-
     fetchSearchProducts:async(query)=>{
         set({loading:true})
         try{
