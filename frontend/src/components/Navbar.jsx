@@ -55,7 +55,7 @@ const Navbar = ({user}) => {
         </span>)}
       </div>
 
-      <button  className=" cursor-pointer bg-transparent border flex items-center border-white justify-center gap-1  text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
+      <button onClick={()=>navigate('/user')} className=" cursor-pointer bg-transparent border flex items-center border-white justify-center gap-1  text-sm py-1 px-2 sm:py-2 sm:px-4 rounded-full hover:bg-green-700 hover:border-green-700 transition-colors duration-200">
         <CircleUserRound size={20}/>
         <span className='hidden sm:block'> Account</span>
       </button>

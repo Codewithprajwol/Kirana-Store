@@ -13,6 +13,7 @@ import CartPage from './Pages/CartPage'
 import { useCartStore } from './store/useCartStore'
 import PurchaseSuccessPage from './Pages/PurchaseSuccessPage'
 import PurchaseCancelPage from './Pages/PurchaseCancelPage'
+import UserProfile from './components/ui/UserProfile'
 
 
 const App = () => {
@@ -38,6 +39,7 @@ const App = () => {
         <Route path='/cart' element={user?<CartPage/>:<ErrorPage/>} />
         <Route path='/purchase-success' element={user?<PurchaseSuccessPage/>:<ErrorPage/>} />
         <Route path='/purchase-cancel' element={user?<PurchaseCancelPage/>:<ErrorPage/>} />
+        <Route path='/user' element={user?<UserProfile user={user}/>:<ErrorPage/>} />
       </Routes>
       <Toaster/>
       <Footer/>
