@@ -6,7 +6,7 @@ export const getFeaturedProducts=async(req,res)=>{
     try{
         let featuredProducts=await redis.get('featuredProducts')
         if(featuredProducts){
-            return res.status(200).json({featuredProducts})
+            return res.status(200).json(JSON.parse(featuredProducts))
         }
         featuredProducts=await Product.find({isFeatured:true}).lean()
         if(!featuredProducts){
@@ -14,7 +14,7 @@ export const getFeaturedProducts=async(req,res)=>{
 
         }
         await redis.set('featuredProducts',JSON.stringify(featuredProducts))
-        res.status(200).json({featuredProducts});
+        res.status(200).json(featuredProducts);
     }catch(err){
         console.log("Error in getFeaturedProducts",err.message);
         res.status(500).json({error:"Internal Server Error"});

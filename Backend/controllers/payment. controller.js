@@ -79,7 +79,6 @@ export const createCheckoutSession=async(req,res)=>{
               }
         })
         
-        console.log(totalAmount)
         res.status(200).json({id:session.id,totalAmount:totalAmount/100});
 
     }catch(err){

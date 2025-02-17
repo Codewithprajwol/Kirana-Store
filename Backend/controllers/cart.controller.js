@@ -37,7 +37,6 @@ export const deleteAllFromCart=async(req,res)=>{
         const user=req.user;
         user.cartItems=[];
         await user.save();
-        console.log('delete items')
         res.json(user.cartItems);
     }catch(err){
         console.log('Error in deleteAllFromCart',err.message);

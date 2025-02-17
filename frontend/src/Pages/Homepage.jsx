@@ -1,6 +1,8 @@
 import BannerSlider from '@/components/homepageComponents/BannerSlider'
 import CategoryItem from '@/components/homepageComponents/CategoryItem'
-import React from 'react'
+import FeaturedProducts from '@/components/homepageComponents/FeaturedProducts'
+import { useProductStore } from '@/store/useProductStore'
+import React, { useEffect } from 'react'
 
 const categories=[
   {href:'/category/grocery',name:'Grocery',imageUrl:'/categories/grocery.png',color:'#E9D985'},
@@ -12,6 +14,10 @@ const categories=[
 ]
 
 const Homepage = () => {
+  const {loading,fetchFeaturedProducts,products} = useProductStore()
+  useEffect(()=>{
+    fetchFeaturedProducts()
+  },[fetchFeaturedProducts])
   return (
     <div className='max-w-7xl py-5 px-3 md:px-3 lg:px-0  mx-auto min-h-screen space-y-4'>
       <BannerSlider/>
@@ -21,6 +27,7 @@ const Homepage = () => {
         {categories.map((category)=><CategoryItem  category={category} key={category.name} />)}
       </div>
       </div>
+      {!loading && products?.length > 0 && <FeaturedProducts featuredProducts={products}/> }
     </div>
   )
 }
