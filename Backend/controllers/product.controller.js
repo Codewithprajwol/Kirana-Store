@@ -2,6 +2,41 @@ import cloudinary from "../lib/cloudinary.js";
 import { redis } from "../lib/redis.js";
 import Product from "../models/product.model.js";
 
+export const updateProduct=async(req,res)=>{
+    try{
+        const {name,description,price,isFeatured,category}=req.body;
+        let {image}=req.body;
+        const product=await Product.findById(req.params.id);
+        if(!product){
+            return res.status(404).json({error:"product not found"});
+        }
+        let cloudinaryResponse=null;
+        if(image){
+            if(product.image){
+                const publicId=product.image.split('/').pop().split('.')[0];
+                try{
+                    await cloudinary.uploader.destroy(`products/${publicId}`);
+                    console.log('image deleted from cloudinary')
+                }catch(err){
+                    console.log('errror deleting image from cloudinary',err.message);
+                }
+            }
+            cloudinaryResponse= await cloudinary.uploader.upload(image,{folder:'products'})
+        }
+        product.name=name;
+        product.description=description;
+        product.price=price;
+        product.image= cloudinaryResponse?.secure_url ? cloudinaryResponse.secure_url : "";
+        product.isFeatured=isFeatured;
+        product.category=category;
+        const updatedProduct=await product.save();
+        await updateFeaturedProductsCache();
+        res.json(updatedProduct);
+    } catch(error){
+        console.log('Error in updateProduct',error.message);
+        res.status(500).json({error:"Internal Server Error"});
+    }
+}
 
 export const getProductDetails=async(req,res)=>{
     try{
@@ -185,7 +220,7 @@ export const toggleFeaturedProducts=async(req,res)=>{
     }
 }
 
-async function updateFeaturedProductsCache(){
+export async function updateFeaturedProductsCache(){
     try{
         let featured_products=await Product.find({isFeatured:true}).lean();
         await redis.set('featuredProducts',JSON.stringify(featured_products));

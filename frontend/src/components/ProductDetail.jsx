@@ -78,7 +78,7 @@ const ProductDetail = () => {
     }
 
     return (
-        <div className="min-h-screen bg-baseBackground py-7">
+        <div className="min-h-screen bg-baseBackground py-12">
             <div className="max-w-5xl mx-auto bg-baseProductCardbg shadow-xl rounded-2xl overflow-hidden">
                 {/* Image Section */}
                 <div className="md:flex">
@@ -93,7 +93,7 @@ const ProductDetail = () => {
                   </div>
 
                     {/* Product Details */}
-                    <div className="md:w-1/2 p-8 ">
+                    <div className="md:w-1/2 p-8 flex flex-col items-center md:items-start justify-center ">
                         <h2 className="text-3xl font-semibold  mb-4">{product.name}</h2>
 
                         <div className="flex items-center mb-4">

@@ -116,19 +116,11 @@ const Navbar = ({user}) => {
     </div> 
 }
 
-    
-    </div>
-    {/* <div className="mt-1 items-center bg-white  px-2 sm:px-3 sm:hidden flex flex-grow max-w-full shadow-lg">
-        <Search className="text-gray-500 size-6" />
-        <input
-          type="text"
-          placeholder="Search products & categories"
-          className="border-none outline-none p-1.5 text-gray-700 w-full  placeholder-gray-500 text-md"
-        />
-    </div> */}
-      <div className="mt-1 items-center bg-white  px-2 sm:px-3 sm:hidden flex flex-grow max-w-full shadow-lg ">
+      <div className="mt-1 items-center absolute top-[100%] w-full left-0  bg-white  px-2 sm:px-3 sm:hidden flex flex-grow max-w-full shadow-lg ">
           <SearchBar />
       </div>
+    
+    </div>
 
     </>
   );

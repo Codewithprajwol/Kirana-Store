@@ -64,6 +64,7 @@ export const useProductStore=create((set)=>({
         try{
             const response=await axios.get(`/products/category/${category}`)
             set({products:response.data.products,loading:false})
+            return response.data.products;
         }catch(error){
             console.log(error)
             toast.error('error in fetching category products')

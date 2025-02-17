@@ -4,10 +4,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom'; // Import Link from React Router
 
 function SearchBar() {
-  const { fetchSearchProducts, loading } = useProductStore();
+  const { fetchSearchProducts } = useProductStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [loading, setLoading] = useState(false); // Initialize to false
   const searchInputRef = useRef(null);
 
   const handleInputChange = (event) => {
@@ -31,20 +32,24 @@ function SearchBar() {
 
   useEffect(() => {
     if (searchTerm) {
+      setLoading(true); // Start loading
       const delayDebounceFn = setTimeout(() => {
         fetchSearchProducts(searchTerm)
           .then(results => {
             setSearchResults(results);
+            setLoading(false); // Stop loading after successful fetch
           })
           .catch(error => {
             console.error("Error fetching search results:", error);
             setSearchResults([]); // Clear results on error
+            setLoading(false); // Stop loading even on error
           });
       }, 300); // Debounce delay (300ms)
 
       return () => clearTimeout(delayDebounceFn); // Cleanup on unmount/change
     } else {
       setSearchResults([]);  // Clear results when search term is empty
+      setLoading(false); // Make sure to stop loading when search term is cleared
     }
   }, [searchTerm]);
 
@@ -62,13 +67,13 @@ function SearchBar() {
         />
       </div>
 
-      {showDropdown && (searchResults?.length > 0 || loading) && (
+      {showDropdown && (
         <div className="absolute left-0 mt-2 top-[100%] max-h-64 overflow-auto mobileSearch right-0  text-black bg-white border border-gray-300 rounded-md shadow-lg z-10">
           {loading ? (
-            <div className="p-2 bg-green-200 h-16 flex items-center justify-center">
+            <div className="p-2 bg-gray-100 h-16 flex items-center justify-center">
               <Loader className="animate-spin" />
             </div>
-          ) : (
+          ) : searchResults?.length > 0 ? (
             <ul>
               {searchResults.map((product) => (
                 <li key={product._id} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
@@ -88,7 +93,9 @@ function SearchBar() {
                 </li>
               ))}
             </ul>
-          )}
+          ) : searchTerm.length > 0 ? (
+            <div className="p-4 text-gray-500">No products found.</div>
+          ) : null}
         </div>
       )}
     </div>

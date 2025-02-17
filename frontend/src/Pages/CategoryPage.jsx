@@ -1,5 +1,5 @@
 import { useProductStore } from '@/store/useProductStore'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import ProductCard from '@/components/ProductCard';
@@ -7,18 +7,26 @@ import ProductSkeleton from '@/components/skeleton/ProductSkeleton';
 
 const CategoryPage = () => {
     const {category}=useParams()
+	const [isLoading,setIsLoading]=useState(false)
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	  }, []);
 	
- const {getProductsByCategory,products,loading}= useProductStore();
-
+ const {getProductsByCategory,products}= useProductStore();
+   
     useEffect(()=>{
-        getProductsByCategory(category)
+	   setIsLoading(true)
+        getProductsByCategory(category).then((result)=>{
+			setIsLoading(false)
+		}).catch((error)=>{
+			console.error('Error in fetchProductDetails', error);
+			setIsLoading(false)
+		})
+	
     },[category])
 
-	if(loading) return <ProductSkeleton/>
+	if(isLoading) return <ProductSkeleton/>
 
   return (
     <div className='min-h-screen '>

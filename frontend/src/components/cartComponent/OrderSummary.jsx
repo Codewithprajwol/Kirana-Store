@@ -26,8 +26,7 @@ const OrderSummary = () => {
 		});
 
 		const session = res.data;
-        console.log(session)
-		const result = await stripe.redirectToCheckout({
+                           		const result = await stripe.redirectToCheckout({
 			sessionId: session.id,
 		});
 
