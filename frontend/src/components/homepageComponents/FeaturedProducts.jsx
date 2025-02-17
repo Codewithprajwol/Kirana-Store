@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 const FeaturedProducts = ({featuredProducts}) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
-	const [itemsPerPage, setItemsPerPage] = useState(3);
+	const [itemsPerPage, setItemsPerPage] = useState(4);
 
 	const { addToCart } = useCartStore();
     const user=useUserStore((state)=>state.user);
