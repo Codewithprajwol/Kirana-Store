@@ -13,7 +13,7 @@ import CartPage from './Pages/CartPage'
 import { useCartStore } from './store/useCartStore'
 import PurchaseSuccessPage from './Pages/PurchaseSuccessPage'
 import PurchaseCancelPage from './Pages/PurchaseCancelPage'
-import UserProfile from './components/ui/UserProfile'
+import UserProfile from './components/UserProfile'
 
 
 const App = () => {
