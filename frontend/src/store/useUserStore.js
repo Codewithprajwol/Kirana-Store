@@ -1,6 +1,7 @@
 import {create} from 'zustand'
 import axios from '../lib/axios'
 import {toast} from 'react-hot-toast'
+import { useEffect } from 'react';
 
 
 export const useUserStore=create((set,get)=>({
@@ -50,7 +51,6 @@ export const useUserStore=create((set,get)=>({
             const response=await axios.get('/auth/profile')
             set({isAuthChecking:false,user:response.data})
         } catch (error) {
-            console.log('i am from this')
             set({isAuthChecking:false,user:null})
         }
     },
@@ -65,10 +65,13 @@ export const useUserStore=create((set,get)=>({
         }
     },
     refreshToken: async () => { 
-        console.log('hello boy')
-                console.log(get().checkingAuth)
+        // console.log('hello boy')
+        //         console.log(get().checkingAuth)
 		// Prevent multiple simultaneous refresh attempts
-		// if (checkingAuth) return;
+        // useEffect(()=>{
+
+        //     if (get().checkingAuth) return;
+        // })
 
 		set({ checkingAuth: true });
 		try {
@@ -77,6 +80,7 @@ export const useUserStore=create((set,get)=>({
 			set({ checkingAuth: false });
 			return response.data;
 		} catch (error) {
+            console.log('i am here')
 			set({ user: null, checkingAuth: false });
 			throw error;
 		}
@@ -86,40 +90,40 @@ export const useUserStore=create((set,get)=>({
 // TODO: Implement the axios interceptors for refreshing access token
 
 // Axios interceptor for token refresh
-let refreshPromise = null;
+// let refreshPromise = null;
 
-axios.interceptors.response.use(
-	(response) => response,
-	async (error) => {
+// axios.interceptors.response.use(
+// 	(response) => response,
+// 	async (error) => {
 
-		const originalRequest = error.config;
-        console.log(error)
-		if (error.response?.status === 401 && !originalRequest._retry) {
-			originalRequest._retry = true;
+// 		const originalRequest = error.config;
+//         console.log(error)
+// 		if (error.response?.status === 401 && !originalRequest._retry) {
+// 			originalRequest._retry = true;
 
-			try {
-				// If a refresh is already in progress, wait for it to complete
-				if (refreshPromise) {
-					await refreshPromise;
-                    console.log('hey i am here')
-					return axios(originalRequest);
-				}
-                console.log('why i am not calling');
-				// Start a new refresh process
-				refreshPromise = useUserStore.getState().refreshToken();
-                console.log(refreshPromise)
-				const response=await refreshPromise;
-                console.log(response)
-				refreshPromise = null;
+// 			try {
+// 				// If a refresh is already in progress, wait for it to complete
+// 				if (refreshPromise) {
+// 					await refreshPromise;
+//                     console.log('hey i am here')
+// 					return axios(originalRequest);
+// 				}
+//                 console.log('why i am not calling');
+// 				// Start a new refresh process
+// 				refreshPromise = useUserStore.getState().refreshToken();
+//                 console.log(refreshPromise)
+// 				const response=await refreshPromise;
+//                 console.log(response)
+// 				refreshPromise = null;
 
-				return axios(originalRequest);
-			} catch (refreshError) {
-                console.log(refreshError)
-				// If refresh fails, redirect to login or handle as needed
-				useUserStore.getState().logout();
-				return Promise.reject(refreshError);
-			}
-		}
-		return Promise.reject(error);
-	}
-);
+// 				return axios(originalRequest);
+// 			} catch (refreshError) {
+//                 console.log(refreshError)
+// 				// If refresh fails, redirect to login or handle as needed
+// 				useUserStore.getState().logout();
+// 				return Promise.reject(refreshError);
+// 			}
+// 		}
+// 		return Promise.reject(error);
+// 	}
+// );
