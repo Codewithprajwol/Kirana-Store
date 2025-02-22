@@ -15,7 +15,6 @@ const categories=[
 
 const Homepage = () => {
   const {fetchFeaturedProducts,products} = useProductStore()
-
   useEffect(()=>{
     fetchFeaturedProducts()
   },[fetchFeaturedProducts])

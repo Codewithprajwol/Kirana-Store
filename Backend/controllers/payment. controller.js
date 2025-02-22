@@ -26,67 +26,82 @@ export const checkAmountForCouponGeneration=async(req,res)=>{
     }
 }
 
-export const createCheckoutSession=async(req,res)=>{
-    try{
-        const {products,couponCode}=req.body;
-        if(!Array.isArray(products)|| products.length===0){
-            return res.status(400).json({error:"Invalid or empty products array"})
+export const createCheckoutSession = async (req, res) => {
+    try {
+        const { products, couponCode } = req.body;
+        console.log(products,couponCode)
+        if (!Array.isArray(products) || products.length === 0) {
+            return res.status(400).json({ error: "Invalid or empty products array" });
         }
-        let totalAmount=0;
+        let totalAmount = 0;
 
-        const lineItems=products.map((product)=>{
-            const amount= Math.round(product.price*100)
-            totalAmount+=product.price * product.quantity
+        const lineItems = products.map((product) => {
+            const amount = Math.round(product.price * 100);
+            totalAmount += product.price * product.quantity;
 
             return {
-                price_data:{
-                    currency:"usd",
-                    product_data:{
-                        name:product.name,
-                        images:[product.image],
+                price_data: {
+                    currency: "usd",
+                    product_data: {
+                        name: product.name,
+                        images: [product.image],
                     },
-                    unit_amount:amount
+                    unit_amount: amount,
                 },
-                quantity:product.quantity || 1
-            }
-        })
-        let coupon=null;
-        if(couponCode){
-            coupon=await Coupon.findOne({code:couponCode,userId:req.user._id,isActive:true})
-            if(coupon){
-                totalAmount-=Math.round(totalAmount*coupon.discountPercentage/100)
+                quantity: product.quantity || 1,
+            };
+        });
+
+        let coupon = null;
+        if (couponCode) {
+            coupon = await Coupon.findOne({ code: couponCode, userId: req.user._id, isActive: true });
+            if (coupon) {
+                totalAmount -= Math.round(totalAmount * coupon.discountPercentage / 100);
             }
         }
-        const session=await stripe.checkout.sessions.create({
-            payment_method_types:['card'],
-            line_items:lineItems,
-            mode:"payment",
-            success_url:`${ENV_VARS.CLIENT_URL}/purchase-success?session_id={{CHECKOUT_SESSION_ID}}`,
-            cancel_url:`${ENV_VARS.CLIENT_URL}/purchase-cancel`,
-            discounts:coupon?[{
-                coupon:await createStripeCoupon(coupon.discountPercentage)
-            }]:[],
-            metadata:{
-                userId:req.user._id.toString(),
-                couponCode:couponCode || "",
-                products:JSON.stringify(
-                    products.map((p)=>({
-                        id:p._id,
-                        quantity:p.quantity,
-                        price:p.price
-                    }))
-                )     
-              }
-        })
-        
-        res.status(200).json({id:session.id,totalAmount:totalAmount/100});
+        console.log(coupon)
 
-    }catch(err){
-        console.log('Error in createCheckoutSession Controller',err.message);
-        res.status(500).json({error:'internal server error'})
+        let session;
+        try {
+            const successUrl = `${ENV_VARS.CLIENT_URL}/purchase-success?session_id={{CHECKOUT_SESSION_ID}}`;
+            const cancelUrl = `${ENV_VARS.CLIENT_URL}/purchase-cancel`;
+            if (successUrl.length > 2048 || cancelUrl.length > 2048) {
+                throw new Error("Generated URL exceeds 2048 characters");
+            }
+
+            session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items: lineItems,
+                mode: "payment",
+                success_url: successUrl,
+                cancel_url: cancelUrl,
+                discounts: coupon ? [{
+                    coupon: await createStripeCoupon(coupon.discountPercentage)
+                }] : [],
+                metadata: {
+                    userId: req.user._id.toString(),
+                    couponCode: couponCode || " ",
+                    products: JSON.stringify(
+                        products.map((p) => ({
+                            id: p._id,
+                            quantity: p.quantity,
+                            price: p.price,
+                        }))
+                    ),
+                },
+            });
+        } catch (err) {
+            console.log('Error creating Stripe session', err.message);
+            return res.status(500).json({ error: 'Error creating Stripe session' });
+        }
+
+        res.status(200).json({ id: session.id, totalAmount: totalAmount / 100 });
+
+    } catch (err) {
+        console.log('Error in createCheckoutSession Controller', err.message);
+        res.status(500).json({ error: 'internal server error' });
     }
-   
-}
+};
 
 export const checkoutSuccess=async(req,res)=>{
     try{

@@ -71,6 +71,7 @@ try{
 
 // this will refresh the access token
 export const refreshToken = async (req, res) => {
+    console.log('hi i ma here')
 	try {
 		const refreshToken = req.cookies.refreshToken;
 
@@ -85,13 +86,13 @@ export const refreshToken = async (req, res) => {
 			return res.status(401).json({ message: "Invalid refresh token" });
 		}
 
-		const accessToken = jwt.sign({ userId: decoded.userId }, ENV_VARS.REFRESH_TOKEN_SECRET, { expiresIn: "15m" });
+		const accessToken = jwt.sign({ userId: decoded.userId }, ENV_VARS.ACCESS_TOKEN_SECRET, { expiresIn: "1m" });
 
 		res.cookie("accessToken", accessToken, {
 			httpOnly: true,
 			secure: process.env.NODE_ENV === "production",
 			sameSite: "strict",
-			maxAge: 15 * 60 * 1000,
+			maxAge:  1*60 * 1000,
 		});
 
 		res.json({ message: "Token refreshed successfully" });

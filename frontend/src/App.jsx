@@ -19,8 +19,10 @@ import ProductDetail from './components/ProductDetail'
 
 const App = () => {
  const {user,authCheck,isAuthChecking}=useUserStore()
+ console.log(isAuthChecking)
  const {getCartItems}=useCartStore()
  useEffect(()=>{
+  console.log('i am calling')
   authCheck()
  },[authCheck])
 

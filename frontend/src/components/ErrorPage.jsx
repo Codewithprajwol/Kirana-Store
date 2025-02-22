@@ -5,9 +5,9 @@ import { Link, useParams } from 'react-router-dom';
 
 const ErrorPage = () => {
     const user=useUserStore((state)=>state.user)
-    if(!user){
-      toast.error('please login first',{id:'login'})
-    }
+    // if(!user){
+    //   toast.error('please login first',{id:'login'})
+    // }
   return (
     <div className="flex flex-col items-center justify-center h-[70vh] bg-green-50 text-center">
       {/* Error Icon or Image (Optional) */}

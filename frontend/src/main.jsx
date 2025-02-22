@@ -7,10 +7,8 @@ import { ThemeProvider } from './components/ThemeProvider'
 
 createRoot(document.getElementById('root')).render(
     <ThemeProvider  storageKey="vite-ui-theme">
-        <StrictMode>
         <BrowserRouter>
         <App />
         </BrowserRouter>
-        </StrictMode>
     </ThemeProvider>
 )

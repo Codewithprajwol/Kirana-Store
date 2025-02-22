@@ -12,12 +12,14 @@ export const useProductStore=create((set)=>({
     setUpdateProduct:(product)=>{set({getUpdateProduct:product,isEditing:true})},
 
     updateProduct:async(newData,productId)=>{
-        console.log(newData,productId)
+        set({loading:true})
         try{
             const response=await axios.patch(`/products/update/${productId}`,newData)
             set((state)=>({
                 products:state.products.map((product)=>product._id===productId?response.data:product),
-                isEditing:false
+                isEditing:false,
+                loading:false,
+                getUpdateProduct:{},
             }))
             toast.success('Product updated successfully')
 
@@ -106,7 +108,6 @@ export const useProductStore=create((set)=>({
         try{
             const response=await axios.get(`/products/search?search=${query}`);
             set({loading:false})
-            console.log(response.data)
             return response.data;
 
         }catch(err){

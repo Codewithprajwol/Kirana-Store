@@ -28,8 +28,8 @@ const CreateProductForm = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if(isEditing&& getUpdateProduct){
-			console.log('helllo ma balla yaa aai')
-			updateProduct(newProduct,getUpdateProduct._id)
+			await updateProduct(newProduct,getUpdateProduct._id)
+			setNewProduct({ name: "", description: "", price: "", category: "", image: "" });
 			return ;
 		}
 		try {

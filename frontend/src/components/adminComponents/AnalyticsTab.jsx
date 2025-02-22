@@ -18,7 +18,6 @@ const AnalyticsTab = () => {
 		const fetchAnalyticsData = async () => {
 			try {
 				const response = await axios.get("/analytics");
-        console.log(response)
 				setAnalyticsData(response.data.analyticsData);
 				setDailySalesData(response.data.dailySalesData);
 			} catch (error) {

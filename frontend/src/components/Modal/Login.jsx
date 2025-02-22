@@ -1,10 +1,12 @@
 import { useUserStore } from '@/store/useUserStore'
+import { Loader } from 'lucide-react'
 import React, { useState } from 'react'
 
 const Login = ({setIsLoginOpen,setIsSignupOpen}) => {
  const login=useUserStore((state)=>state.login)
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
+    const [isImageLoading,setIsImageLoading]=useState(true)
 
     const loginSubmitHandler=async(e)=>{
         e.preventDefault()
@@ -14,9 +16,11 @@ const Login = ({setIsLoginOpen,setIsSignupOpen}) => {
   return (
 <div className="flex bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-screen-md mx-4 relative">
   {/* Left Side - Illustration Area */}
-  <div className="hidden sm:block sm:w-1/2 ">
-      <img src='/test.jpg' alt="Stylish Illustration" className="w-full h-full object-cover mix-blend-multiply opacity-75" />
+  <div className={`hidden ${!isImageLoading?'sm:block':'hidden'} sm:w-1/2 `}>
+      <img onLoad={()=>setIsImageLoading(false)} src='/test.jpg' alt="Stylish Illustration" className="w-full h-full object-cover mix-blend-multiply opacity-75" />
   </div>
+  {isImageLoading && <div className=" hidden sm:flex sm:w-1/2 bg-green-200  items-center justify-center "><Loader className='animate-spin text-black size-7'/></div>}
+ 
 
   {/* Right Side - Login Form */}
   <div className="w-full sm:w-1/2 p-8 flex flex-col justify-center">

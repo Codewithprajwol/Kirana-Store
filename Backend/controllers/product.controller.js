@@ -2,21 +2,6 @@ import cloudinary from "../lib/cloudinary.js";
 import { redis } from "../lib/redis.js";
 import Product from "../models/product.model.js";
 
-
-
-const checkImageByPublicId = async (publicId) => {
-    try {
-      const response = await cloudinary.api.resource(publicId);
-      return response ? true : false;
-    } catch (error) {
-      if (error.http_code === 404) {
-        return false; // Image not found
-      }
-      console.error("Error checking image:", error);
-      return false;
-    }
-  };
-
 export const updateProduct=async(req,res)=>{
     try{
         const {name,description,price,isFeatured,category}=req.body;
@@ -30,11 +15,8 @@ export const updateProduct=async(req,res)=>{
             if(product.image){
                 const publicId=product.image.split('/').pop().split('.')[0];
                 try{
-                    // await cloudinary.uploader.destroy(`products/${publicId}`);
-                 const res=  await checkImageByPublicId(`products/${publicId}`);
-                 if(!res){
+                    await cloudinary.uploader.destroy(`products/${publicId}`);
                     cloudinaryResponse= await cloudinary.uploader.upload(image,{folder:'products'})
-                 }
                 }catch(err){
                     console.log('errror checking image in cloudinary',err.message);
                 }
@@ -43,7 +25,7 @@ export const updateProduct=async(req,res)=>{
         product.name=name;
         product.description=description;
         product.price=price;
-        product.image= cloudinaryResponse?.secure_url ? cloudinaryResponse.secure_url : image;
+        product.image= cloudinaryResponse?.secure_url;
         product.isFeatured=isFeatured;
         product.category=category;
         const updatedProduct=await product.save();
@@ -54,7 +36,6 @@ export const updateProduct=async(req,res)=>{
         res.status(500).json({error:"Internal Server Error"});
     }
 }
-
 
 export const getProductDetails=async(req,res)=>{
     try{

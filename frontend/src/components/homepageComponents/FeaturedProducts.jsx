@@ -33,8 +33,8 @@ const FeaturedProducts = ({featuredProducts}) => {
 		const handleResize = () => {
 			if (window.innerWidth < 640) setItemsPerPage(1);
 			else if (window.innerWidth < 1024) setItemsPerPage(2);
-			else if (window.innerWidth < 1280) setItemsPerPage(3);
-			else setItemsPerPage(4);
+			else if (window.innerWidth < 1280) setItemsPerPage(4);
+			else setItemsPerPage(5);
 		};
 
 		handleResize();
@@ -64,7 +64,7 @@ const FeaturedProducts = ({featuredProducts}) => {
 							style={{ transform: `translateX(-${currentIndex * (100 / itemsPerPage)}%)` }}
 						>
 							{featuredProducts?.map((product) => (
-								<Link to={`/product/${product._id}`}   key={product._id} className='w-full sm:w-1/2 lg:w-1/3 xl:w-1/5 flex-shrink-0  px-2'>
+								<Link to={`/product/${product._id}`}   key={product._id} className='w-full sm:w-1/2 lg:w-1/4 xl:w-1/5 flex-shrink-0  px-2'>
 									<div className='bg-baseProductCardbg  rounded-lg shadow-sm overflow-hidden h-full transition-all duration-300 hover:shadow-xl border border-emerald-500/30'>
 										<div className='overflow-hidden'>
 											<img

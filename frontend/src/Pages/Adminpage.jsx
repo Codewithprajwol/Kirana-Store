@@ -16,15 +16,14 @@ const tabs = [
 
 const Adminpage = () => {
     const [activeTab, setActiveTab] = useState("create");
-	const {fetchAllProducts,isEditing}=useProductStore()
+	const {fetchAllProducts,isEditing,getUpdateProduct}=useProductStore()
 
-	console.log(isEditing)
 	useEffect(()=>{
 		
-	if(isEditing){
+	if(isEditing,getUpdateProduct){
 		setActiveTab('create');
 	}
-	},[isEditing])
+	},[getUpdateProduct])
 
 	useEffect(()=>{
 		fetchAllProducts()
@@ -53,7 +52,7 @@ const Adminpage = () => {
 							}`}
 						>
 							<tab.icon className='mr-2 h-5 w-5' />
-							{tab.label}
+							{tab.label==='Create Product' && Object.keys(getUpdateProduct).length !== 0?'Update Product':tab.label}
 						</button>
 					))}
 				</div>
