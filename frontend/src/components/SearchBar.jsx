@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'; // Import Link from React Router
 function SearchBar() {
   const { fetchSearchProducts } = useProductStore();
   const [searchTerm, setSearchTerm] = useState('');
+  const [productName,setProductName]=useState('')
   const [searchResults, setSearchResults] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [loading, setLoading] = useState(false); // Initialize to false
@@ -14,6 +15,7 @@ function SearchBar() {
   const handleInputChange = (event) => {
     const newSearchTerm = event.target.value;
     setSearchTerm(newSearchTerm);
+    setProductName('');
     setShowDropdown(newSearchTerm.length > 0); // Show if there's text
   };
 
@@ -61,7 +63,7 @@ function SearchBar() {
         <input
           type="text"
           className="w-full px-4 py-2 border flex-grow-1 border-gray-300 rounded-md shadow-sm border-none focus:outline-none  text-black"
-          value={searchTerm}
+          value={productName?productName:searchTerm}
           placeholder="Search products "
           onChange={handleInputChange}
         />
@@ -76,7 +78,7 @@ function SearchBar() {
           ) : searchResults?.length > 0 ? (
             <ul>
               {searchResults.map((product) => (
-                <li key={product._id} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                <li onClick={()=>{setShowDropdown(false); setProductName(product.name)}} key={product._id} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                   <Link to={`/product/${product._id}`} className="flex items-center space-x-2 md:space-x-4">
                     {product.image && (
                       <img

@@ -4,7 +4,7 @@ import { useProductStore } from '@/store/useProductStore'
 import React from 'react'
 
 const ProductsList = () => {
-    const{deleteProduct,toggleFeaturedProduct,products}=useProductStore()
+    const{deleteProduct,toggleFeaturedProduct,products,updateProduct,isEditing}=useProductStore()
   return (
     <motion.div
 			className='bg-gray-800 shadow-lg rounded-lg overflow-hidden max-w-4xl mx-auto'
@@ -98,7 +98,7 @@ const ProductsList = () => {
 							</td>
 							<td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
 								<button
-									// onClick={() => deleteProduct(product._id)}
+									onClick={() =>{console.log('updated clicked')}}
 									className='text-red-400 hover:text-red-300'
 								>
 									<Edit2 className="h-5 w-5"/>

@@ -6,6 +6,23 @@ export const useProductStore=create((set)=>({
     products:[],
     loading:false,
     setProducts:(products)=>set({products}),
+    isEditing:false,
+
+    updateProduct:async(newData,productId)=>{
+        set({isEditing:true})
+        try{
+            const response=await axios.put(`/products/update/${productId}`,newData)
+            console.log(response.data)
+            // set((state)=>({
+            //     products:state.products.map((product)=>product._id===productId?response.data:product),
+            //     isEditing:false
+            // }))
+
+        }catch(error){
+            console.log(error);
+        }
+    }
+    ,
 
     createProduct:async(productData)=>{
      set({loading:true})
