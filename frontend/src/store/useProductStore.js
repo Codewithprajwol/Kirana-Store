@@ -7,16 +7,19 @@ export const useProductStore=create((set)=>({
     loading:false,
     setProducts:(products)=>set({products}),
     isEditing:false,
+    getUpdateProduct:{},
+
+    setUpdateProduct:(product)=>{set({getUpdateProduct:product,isEditing:true})},
 
     updateProduct:async(newData,productId)=>{
-        set({isEditing:true})
+        console.log(newData,productId)
         try{
-            const response=await axios.put(`/products/update/${productId}`,newData)
-            console.log(response.data)
-            // set((state)=>({
-            //     products:state.products.map((product)=>product._id===productId?response.data:product),
-            //     isEditing:false
-            // }))
+            const response=await axios.patch(`/products/update/${productId}`,newData)
+            set((state)=>({
+                products:state.products.map((product)=>product._id===productId?response.data:product),
+                isEditing:false
+            }))
+            toast.success('Product updated successfully')
 
         }catch(error){
             console.log(error);

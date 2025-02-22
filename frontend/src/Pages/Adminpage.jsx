@@ -16,7 +16,16 @@ const tabs = [
 
 const Adminpage = () => {
     const [activeTab, setActiveTab] = useState("create");
-	const fetchAllProducts=useProductStore((state)=>state.fetchAllProducts)
+	const {fetchAllProducts,isEditing}=useProductStore()
+
+	console.log(isEditing)
+	useEffect(()=>{
+		
+	if(isEditing){
+		setActiveTab('create');
+	}
+	},[isEditing])
+
 	useEffect(()=>{
 		fetchAllProducts()
 	},[fetchAllProducts])

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { PlusCircle, Upload, Loader } from "lucide-react";
 import toast from "react-hot-toast";
@@ -7,7 +7,8 @@ import { useProductStore } from "@/store/useProductStore";
 const categories = ["grocery", "bakery", "household", "kitchen", "package", "vegetable"];
 
 const CreateProductForm = () => {
-    const {createProduct,loading}=useProductStore()
+    const {createProduct,loading,updateProduct,getUpdateProduct,isEditing}=useProductStore()
+    const {image,description,price,category,name}=getUpdateProduct;
 
 	const [newProduct, setNewProduct] = useState({
 		name: "",
@@ -17,8 +18,20 @@ const CreateProductForm = () => {
 		image: "",
 	});
 
+	useEffect(()=>{
+		if(isEditing&& getUpdateProduct){
+			setNewProduct({name,description,price,category,image})
+		}
+	},[isEditing && getUpdateProduct])
+
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		if(isEditing&& getUpdateProduct){
+			console.log('helllo ma balla yaa aai')
+			updateProduct(newProduct,getUpdateProduct._id)
+			return ;
+		}
 		try {
 			await createProduct(newProduct);
             toast.success("product created Successfully")
@@ -48,7 +61,7 @@ const CreateProductForm = () => {
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.8 }}
 		>
-			<h2 className='text-2xl font-semibold mb-6 text-emerald-300'>Create New Product</h2>
+			<h2 className='text-2xl font-semibold mb-6 text-emerald-300'>{isEditing?'Update Product':'Create New Product'}</h2>
 
 			<form onSubmit={handleSubmit} className='space-y-4'>
 				<div>
@@ -60,7 +73,7 @@ const CreateProductForm = () => {
 						id='name'
 						name='name'
 						value={newProduct.name}
-						onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+						onChange={(e) =>{setNewProduct({ ...newProduct, name: e.target.value })}}
 						className='mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md shadow-sm py-2
 						 px-3 text-white focus:outline-none focus:ring-2
 						focus:ring-emerald-500 focus:border-emerald-500'
@@ -138,7 +151,27 @@ const CreateProductForm = () => {
 					{newProduct.image && <span className='ml-3 text-sm text-gray-400'>Image uploaded </span>}
 				</div>
 
-				<button
+				
+
+				{isEditing ? (<button
+					type='submit'
+					className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md 
+					shadow-sm text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 
+					focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50'
+					disabled={loading} 
+				>
+					{loading ? (
+						<>
+							<Loader className='mr-2 h-5 w-5 animate-spin' aria-hidden='true' />
+							Loading...
+						</>
+					) : (
+						<>
+							<PlusCircle className='mr-2 h-5 w-5' />
+							update Product
+						</>
+					)}
+				</button>):(<button
 					type='submit'
 					className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md 
 					shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 
@@ -156,7 +189,7 @@ const CreateProductForm = () => {
 							Create Product
 						</>
 					)}
-				</button>
+				</button>)}
 			</form>
 		</motion.div>
 	);
